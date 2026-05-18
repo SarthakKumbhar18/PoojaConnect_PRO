@@ -90,6 +90,8 @@ The platform helps users easily find and book Pandits for various pooja services
 
 ## 🔹 Payment & Invoice
 
+<img width="1080" height="862" alt="Invoice" src="https://github.com/user-attachments/assets/6092e187-b685-4b91-9746-46dc69cc2bf5" />
+
 <img width="1222" height="911" alt="payment1" src="https://github.com/user-attachments/assets/789cffb2-da4e-4d84-9fd0-af73f6d87201" />
 
 <img width="1757" height="901" alt="payment2" src="https://github.com/user-attachments/assets/480d9a7d-1383-46f2-868e-f1a38ad2361f" />
