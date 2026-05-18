@@ -104,7 +104,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'PoojaConnectPro_DB',
         'USER': 'root',
-        'PASSWORD': 'Root@123',
+        'PASSWORD': '********',
         'HOST': 'localhost',
         'PORT': '3306',
     }
