@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+{% load static %}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PoojaConnect | Durga Puja</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#ffffff;
+color:#111827;
+}
+
+/* NAVBAR */
+
+.header-nav{
+background:white;
+border-bottom:1px solid #e5e7eb;
+padding:0.6rem 1rem;
+position:sticky;
+top:0;
+z-index:50;
+}
+
+.nav-container{
+max-width:1280px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo-text{
+font-size:1.5rem;
+font-weight:700;
+background:linear-gradient(135deg,#f97316,#d97706);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.logo-text a{
+text-decoration:none;
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:2rem;
+}
+
+.nav-links a{
+text-decoration:none;
+font-weight:500;
+color:#1f2937;
+}
+
+.nav-links a:hover{
+color:#f97316;
+}
+
+/* PROFILE */
+
+.profile-wrapper{
+position:relative;
+}
+
+.profile-icon{
+width:42px;
+height:42px;
+border-radius:50%;
+overflow:hidden;
+cursor:pointer;
+border:1px solid #e5e7eb;
+}
+
+.profile-icon img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.dropdown{
+position:absolute;
+right:0;
+top:55px;
+background:white;
+border:1px solid #e5e7eb;
+border-radius:10px;
+width:220px;
+display:none;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.dropdown a{
+display:block;
+padding:0.8rem 1rem;
+text-decoration:none;
+color:#374151;
+}
+
+.dropdown a:hover{
+background:#f9fafb;
+color:#f97316;
+}
+
+.show{
+display:block;
+}
+
+/* PAGE */
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:40px 20px;
+}
+
+.title{
+font-size:36px;
+font-weight:700;
+color:#ea580c;
+margin-bottom:30px;
+text-align:center;
+}
+
+/* TOP SECTION */
+
+.top-section{
+display:flex;
+gap:40px;
+flex-wrap:wrap;
+margin-bottom:40px;
+}
+
+.top-section img{
+width:100%;
+max-width:350px;
+height:350px;
+object-fit:contain;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+background:#f3f4f6;
+}
+
+.top-content{
+flex:1;
+font-size:16px;
+line-height:1.7;
+color:#374151;
+}
+
+/* SECTION */
+
+.section{
+margin-bottom:35px;
+padding:25px;
+border-radius:12px;
+border:1px solid #e5e7eb;
+background:#fafafa;
+}
+
+.section h2{
+color:#ea580c;
+margin-bottom:15px;
+font-size:22px;
+}
+
+.section ul{
+padding-left:20px;
+line-height:1.7;
+}
+
+.section li{
+margin-bottom:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header-nav">
+
+<div class="nav-container">
+
+<div class="logo-text">
+<a href="{% url 'home' %}"><u>PoojaConnect</u></a>
+</div>
+
+<div class="nav-links">
+
+<a href="{% url 'home' %}">Home</a>
+<a href="{% url 'puja' %}">Puja</a>
+<a href="{% url 'temples' %}">Temple</a>
+<a href="{% url 'library' %}">Library</a>
+<a href="{% url 'astrology' %}">Astrology</a>
+<a href="{% url 'help' %}">Help</a>
+
+<div class="profile-wrapper">
+
+<div class="profile-icon" onclick="toggleDropdown()">
+<img src="{% static 'home/images/profile.jpg' %}">
+</div>
+
+<div id="profileDropdown" class="dropdown">
+<a href="{% url 'user_register' %}">Register as User</a>
+<a href="{% url 'user_login' %}">Login as User</a>
+<a href="{% url 'pandit_register' %}">Register as Pandit</a>
+<a href="{% url 'pandit_login' %}">Login as Pandit</a>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+
+<div class="container">
+
+<h1 class="title">Durga Puja</h1>
+
+<div class="top-section">
+
+<img src="{% static 'home/images/Puja/durga.jpg' %}" alt="Durga Puja">
+
+<div class="top-content">
+
+<p>
+Durga Puja is one of the most important Hindu festivals dedicated to Goddess Durga, the divine symbol of power, protection, and victory of good over evil. Devotees worship Goddess Durga to seek blessings for strength, courage, prosperity, and protection from negative forces.
+</p>
+
+<p>
+This grand festival is celebrated with great devotion and enthusiasm across India, especially in West Bengal, Assam, and other parts of eastern India. Durga Puja represents the triumph of righteousness and the divine power that protects humanity.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>1. Introduction to Durga Puja</h2>
+
+<p>
+Durga Puja is a sacred ritual performed to honor Goddess Durga, who is believed to have defeated the demon Mahishasura and restored peace in the universe. The puja symbolizes the victory of good over evil and the power of divine feminine energy.
+</p>
+
+<p>
+Devotees perform prayers, offer flowers and sweets, and chant hymns to seek blessings for protection, success, and happiness in life.
+</p>
+
+</div>
+
+
+<div class="section">
+
+<h2>2. Essential Puja Samagri (Items Required for the Ritual)</h2>
+
+<ul>
+
+<li>Idol or image of Goddess Durga</li>
+<li>Red flowers and garlands</li>
+<li>Kumkum and turmeric</li>
+<li>Incense sticks and camphor</li>
+<li>Coconut and betel leaves</li>
+<li>Fruits and sweets</li>
+<li>Rice grains</li>
+<li>Holy water (Gangajal)</li>
+<li>Oil lamp (Diya)</li>
+<li>Durga Chalisa or Durga Saptashati book</li>
+
+</ul>
+
+</div>
+
+
+<div class="section">
+
+<h2>3. Purpose and Importance of Performing Durga Puja</h2>
+
+<ul>
+
+<li>To seek protection and strength from Goddess Durga.</li>
+<li>To remove negative energies and obstacles.</li>
+<li>To gain courage and confidence in life.</li>
+<li>To promote prosperity, peace, and well-being.</li>
+<li>To celebrate the victory of good over evil.</li>
+
+</ul>
+
+</div>
+
+
+<div class="section">
+
+<h2>4. Historical and Religious Significance</h2>
+
+<p>
+The story of Durga Puja originates from ancient Hindu scriptures which describe the battle between Goddess Durga and the demon Mahishasura. After a fierce battle lasting nine days, the Goddess defeated the demon and restored balance in the universe.
+</p>
+
+<p>
+This victory is celebrated as Navratri and Durga Puja, symbolizing the power of divine energy and righteousness.
+</p>
+
+</div>
+
+
+<div class="section">
+
+<h2>5. Detailed Overview of the Durga Puja Ritual</h2>
+
+<p>
+Durga Puja rituals usually begin with the installation of the idol of Goddess Durga and the chanting of sacred mantras. Devotees offer flowers, fruits, sweets, and prayers while reciting hymns from the Durga Saptashati.
+</p>
+
+<p>
+The puja includes aarti, devotional songs, and distribution of prasad among devotees. The festival concludes with immersion of the idol (Visarjan), symbolizing the return of the Goddess to her divine abode.
+</p>
+
+<p>
+Durga Puja inspires devotees to cultivate strength, courage, and faith while overcoming challenges in life.
+</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+function toggleDropdown(){
+document.getElementById("profileDropdown").classList.toggle("show");
+}
+
+window.onclick=function(e){
+if(!e.target.closest('.profile-wrapper')){
+document.getElementById("profileDropdown").classList.remove("show");
+}
+}
+
+</script>
+
+</body>
+</html>

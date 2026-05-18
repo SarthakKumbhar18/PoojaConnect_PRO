@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+{% load static %}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PoojaConnect | Rudrabhishek Puja</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#ffffff;
+color:#111827;
+}
+
+/* NAVBAR */
+
+.header-nav{
+background:white;
+border-bottom:1px solid #e5e7eb;
+padding:0.6rem 1rem;
+position:sticky;
+top:0;
+z-index:50;
+}
+
+.nav-container{
+max-width:1280px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo-text{
+font-size:1.5rem;
+font-weight:700;
+background:linear-gradient(135deg,#f97316,#d97706);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.logo-text a{
+text-decoration:none;
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:2rem;
+}
+
+.nav-links a{
+text-decoration:none;
+font-weight:500;
+color:#1f2937;
+}
+
+.nav-links a:hover{
+color:#f97316;
+}
+
+/* PROFILE */
+
+.profile-wrapper{
+position:relative;
+}
+
+.profile-icon{
+width:42px;
+height:42px;
+border-radius:50%;
+overflow:hidden;
+cursor:pointer;
+border:1px solid #e5e7eb;
+}
+
+.profile-icon img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.dropdown{
+position:absolute;
+right:0;
+top:55px;
+background:white;
+border:1px solid #e5e7eb;
+border-radius:10px;
+width:220px;
+display:none;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.dropdown a{
+display:block;
+padding:0.8rem 1rem;
+text-decoration:none;
+color:#374151;
+}
+
+.dropdown a:hover{
+background:#f9fafb;
+color:#f97316;
+}
+
+.show{
+display:block;
+}
+
+/* PAGE */
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:40px 20px;
+}
+
+.title{
+font-size:36px;
+font-weight:700;
+color:#ea580c;
+margin-bottom:30px;
+text-align:center;
+}
+
+/* TOP SECTION */
+
+.top-section{
+display:flex;
+gap:40px;
+flex-wrap:wrap;
+margin-bottom:40px;
+}
+
+.top-section img{
+width:100%;
+max-width:350px;
+height:350px;
+object-fit:contain;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+background:#f3f4f6;
+}
+
+.top-content{
+flex:1;
+font-size:16px;
+line-height:1.7;
+color:#374151;
+}
+
+/* SECTION */
+
+.section{
+margin-bottom:35px;
+padding:25px;
+border-radius:12px;
+border:1px solid #e5e7eb;
+background:#fafafa;
+}
+
+.section h2{
+color:#ea580c;
+margin-bottom:15px;
+font-size:22px;
+}
+
+.section ul{
+padding-left:20px;
+line-height:1.7;
+}
+
+.section li{
+margin-bottom:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<header class="header-nav">
+
+<div class="nav-container">
+
+<div class="logo-text">
+<a href="{% url 'home' %}"><u>PoojaConnect</u></a>
+</div>
+
+<div class="nav-links">
+
+<a href="{% url 'home' %}">Home</a>
+<a href="{% url 'puja' %}">Puja</a>
+<a href="{% url 'temples' %}">Temple</a>
+<a href="{% url 'library' %}">Library</a>
+<a href="{% url 'astrology' %}">Astrology</a>
+<a href="{% url 'help' %}">Help</a>
+
+<div class="profile-wrapper">
+
+<div class="profile-icon" onclick="toggleDropdown()">
+<img src="{% static 'home/images/profile.jpg' %}">
+</div>
+
+<div id="profileDropdown" class="dropdown">
+<a href="{% url 'user_register' %}">Register as User</a>
+<a href="{% url 'user_login' %}">Login as User</a>
+<a href="{% url 'pandit_register' %}">Register as Pandit</a>
+<a href="{% url 'pandit_login' %}">Login as Pandit</a>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+
+<div class="container">
+
+<h1 class="title">Rudrabhishek Puja</h1>
+
+<div class="top-section">
+
+<img src="{% static 'home/images/Puja/rudrabhishek.jpg' %}" alt="Rudrabhishek Puja">
+
+<div class="top-content">
+
+<p>
+Rudrabhishek Puja is a powerful Hindu ritual dedicated to Lord Shiva, where the Shiva Lingam is bathed with sacred offerings such as milk, water, honey, ghee, and other holy substances. This ritual is believed to please Lord Shiva and remove negativity, obstacles, and suffering from life.
+</p>
+
+<p>
+Devotees perform Rudrabhishek Puja to seek divine blessings for health, prosperity, spiritual growth, and protection from difficulties. It is considered one of the most sacred rituals for invoking the blessings of Lord Shiva.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>1. Introduction to Rudrabhishek Puja</h2>
+
+<p>
+Rudrabhishek Puja is a sacred worship ceremony in which devotees perform abhishekam (holy bathing) of the Shiva Lingam while chanting powerful Vedic mantras dedicated to Lord Shiva. The word “Rudra” represents Lord Shiva, and “Abhishek” means sacred bathing.
+</p>
+
+<p>
+This puja is believed to purify the mind, remove sins, and bring divine blessings. It is often performed on auspicious occasions such as Mahashivratri, Mondays, or during important life events.
+</p>
+
+</div>
+
+
+<div class="section">
+
+<h2>2. Essential Puja Samagri (Items Required for the Ritual)</h2>
+
+<ul>
+
+<li>Shiva Lingam or image of Lord Shiva</li>
+<li>Gangajal (holy Ganga water)</li>
+<li>Milk</li>
+<li>Honey</li>
+<li>Curd (Yogurt)</li>
+<li>Ghee</li>
+<li>Sugar</li>
+<li>Bilva (Bel) leaves</li>
+<li>Flowers</li>
+<li>Sandalwood paste</li>
+<li>Incense sticks and camphor</li>
+<li>Fruits and sweets for offering</li>
+
+</ul>
+
+</div>
+
+
+<div class="section">
+
+<h2>3. Purpose and Importance of Performing Rudrabhishek Puja</h2>
+
+<ul>
+
+<li>To seek blessings of Lord Shiva for peace and prosperity.</li>
+<li>To remove negative energies and obstacles from life.</li>
+<li>To improve health and spiritual well-being.</li>
+<li>To reduce the malefic effects of planetary positions.</li>
+<li>To attain inner peace and divine protection.</li>
+
+</ul>
+
+</div>
+
+
+<div class="section">
+
+<h2>4. Historical and Religious Significance</h2>
+
+<p>
+The significance of Rudrabhishek Puja is described in several Hindu scriptures including the Shiva Purana and the Yajurveda. It is believed that performing Rudrabhishek with devotion pleases Lord Shiva, who is known as the destroyer of evil and the protector of devotees.
+</p>
+
+<p>
+According to ancient traditions, sages and devotees performed this sacred ritual to seek blessings for prosperity, protection, and spiritual enlightenment.
+</p>
+
+</div>
+
+
+<div class="section">
+
+<h2>5. Detailed Overview of the Rudrabhishek Puja Ritual</h2>
+
+<p>
+The ritual begins with invoking Lord Ganesha to remove obstacles, followed by chanting Vedic mantras dedicated to Lord Shiva. The Shiva Lingam is then bathed with sacred substances such as water, milk, honey, curd, and ghee.
+</p>
+
+<p>
+Devotees offer Bilva leaves, flowers, fruits, and incense while chanting sacred mantras like the Maha Mrityunjaya Mantra and Rudra Mantras. The puja concludes with aarti and distribution of prasad to devotees.
+</p>
+
+<p>
+Rudrabhishek Puja is believed to bring spiritual purification, divine blessings, and protection from difficulties.
+</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+function toggleDropdown(){
+document.getElementById("profileDropdown").classList.toggle("show");
+}
+
+window.onclick=function(e){
+if(!e.target.closest('.profile-wrapper')){
+document.getElementById("profileDropdown").classList.remove("show");
+}
+}
+
+</script>
+
+</body>
+</html>

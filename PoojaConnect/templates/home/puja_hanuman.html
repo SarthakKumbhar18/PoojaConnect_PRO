@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PoojaConnect | Hanuman Puja</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .header-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.6rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text a {
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        /* PROFILE */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            width: 220px;
+            display: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: #374151;
+        }
+
+        .dropdown a:hover {
+            background: #f9fafb;
+            color: #f97316;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* PAGE */
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ea580c;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* TOP SECTION */
+
+        .top-section {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .top-section img {
+            width: 100%;
+            max-width: 350px;
+            height: 350px;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background: #f3f4f6;
+        }
+
+        .top-content {
+            flex: 1;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #374151;
+        }
+
+        /* SECTION */
+
+        .section {
+            margin-bottom: 35px;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            background: #fafafa;
+        }
+
+        .section h2 {
+            color: #ea580c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .section ul {
+            padding-left: 20px;
+            line-height: 1.7;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="header-nav">
+
+        <div class="nav-container">
+
+            <div class="logo-text">
+                <a href="{% url 'home' %}"><u>PoojaConnect</u></a>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'puja' %}">Puja</a>
+                <a href="{% url 'temples' %}">Temple</a>
+                <a href="{% url 'library' %}">Library</a>
+                <a href="{% url 'astrology' %}">Astrology</a>
+                <a href="{% url 'help' %}">Help</a>
+
+                <div class="profile-wrapper">
+
+                    <div class="profile-icon" onclick="toggleDropdown()">
+                        <img src="{% static 'home/images/profile.jpg' %}">
+                    </div>
+
+                    <div id="profileDropdown" class="dropdown">
+                        <a href="{% url 'user_register' %}">Register as User</a>
+                        <a href="{% url 'user_login' %}">Login as User</a>
+                        <a href="{% url 'pandit_register' %}">Register as Pandit</a>
+                        <a href="{% url 'pandit_login' %}">Login as Pandit</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <div class="container">
+
+        <h1 class="title">Hanuman Puja</h1>
+
+        <div class="top-section">
+
+            <img src="{% static 'home/images/Puja/hanuman.jpg' %}" alt="Hanuman Puja">
+
+            <div class="top-content">
+
+                <p>
+                    Hanuman Puja is a sacred Hindu ritual dedicated to Lord Hanuman, the symbol of strength, devotion,
+                    courage, and protection. Devotees worship Lord Hanuman to seek protection from negative energies,
+                    obstacles, and fears.
+                </p>
+
+                <p>
+                    Lord Hanuman is known as the greatest devotee of Lord Rama and represents unwavering faith,
+                    dedication, and loyalty. Performing Hanuman Puja with devotion is believed to bring courage,
+                    success, and spiritual strength in life.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>1. Introduction to Hanuman Puja</h2>
+
+            <p>
+                Hanuman Puja is performed to honor Lord Hanuman, the powerful deity known for his strength, devotion,
+                and wisdom. Devotees pray to Lord Hanuman for courage, protection, and the removal of obstacles in life.
+            </p>
+
+            <p>
+                This puja is commonly performed on Tuesdays and Saturdays, which are considered especially auspicious
+                for worshipping Lord Hanuman.
+            </p>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>2. Essential Puja Samagri (Items Required for the Ritual)</h2>
+
+            <ul>
+
+                <li>Idol or image of Lord Hanuman</li>
+                <li>Red flowers</li>
+                <li>Vermilion (Sindoor)</li>
+                <li>Betel leaves and betel nuts</li>
+                <li>Incense sticks and camphor</li>
+                <li>Coconut</li>
+                <li>Bananas and fruits</li>
+                <li>Laddoos or sweets</li>
+                <li>Oil lamp (Diya)</li>
+                <li>Holy water (Gangajal)</li>
+                <li>Tulsi leaves</li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>3. Purpose and Importance of Performing Hanuman Puja</h2>
+
+            <ul>
+
+                <li>To gain strength, courage, and confidence.</li>
+                <li>To remove fear, negativity, and evil influences.</li>
+                <li>To overcome obstacles and difficulties.</li>
+                <li>To improve mental strength and determination.</li>
+                <li>To seek protection and blessings from Lord Hanuman.</li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>4. Historical and Religious Significance</h2>
+
+            <p>
+                Lord Hanuman plays a significant role in the epic Ramayana as the devoted follower of Lord Rama. His
+                courage, loyalty, and devotion are celebrated across Hindu traditions.
+            </p>
+
+            <p>
+                Hanuman Puja reminds devotees of the values of strength, humility, and devotion. His worship is believed
+                to remove suffering and bring divine protection to devotees.
+            </p>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>5. Detailed Overview of the Hanuman Puja Ritual</h2>
+
+            <p>
+                The puja begins with lighting a lamp and offering prayers to Lord Hanuman. Devotees apply vermilion
+                (Sindoor) to the idol and offer flowers, sweets, fruits, and incense.
+            </p>
+
+            <p>
+                Devotees chant powerful prayers such as the Hanuman Chalisa and Bajrang Baan to seek blessings. The puja
+                concludes with aarti and distribution of prasad among devotees.
+            </p>
+
+            <p>
+                Regular worship of Lord Hanuman is believed to bring strength, courage, protection, and spiritual growth
+                in life.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                document.getElementById("profileDropdown").classList.remove("show");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

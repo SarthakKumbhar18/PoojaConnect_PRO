@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+</head>
+<body>
+    
+    <h2>Payment</h2>
+
+<p>Pandit: {{ appointment.pandit.user.username }}</p>
+<p>Service: {{ appointment.service }}</p>
+<p>Amount: ₹{{ appointment.pandit.fees }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Pay Now</button>
+</form>
+
+<a href="{% url 'user_dashboard' %}">Cancel</a>
+
+</body>
+</html>

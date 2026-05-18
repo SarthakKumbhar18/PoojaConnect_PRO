@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay Invoice - PoojaConnect</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #fff7ed;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            color: #7c2d12;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: #f97316;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            background: #ea580c;
+        }
+
+        /* PAYMENT CARD */
+        .payment-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(249,115,22,0.15);
+            border: 1px solid #fed7aa;
+        }
+
+        .row {
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #374151;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #7c2d12;
+        }
+
+        .amount {
+            font-size: 28px;
+            font-weight: 700;
+            color: #15803d;
+            margin: 20px 0;
+        }
+
+        .secure-badge {
+            background: #fff7ed;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            border: 1px solid #fed7aa;
+        }
+
+        .pay-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            background: #f97316;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .pay-btn:hover {
+            background: #ea580c;
+        }
+
+        .pay-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h2>💳 Complete Payment</h2>
+        <a href="{% url 'user_payment_history' %}" class="back-btn">
+            ← Back
+        </a>
+    </div>
+
+    <!-- PAYMENT CARD -->
+    <div class="payment-card">
+
+        <div class="row">
+            <span class="label">Invoice ID:</span>
+            #{{ invoice.id }}
+        </div>
+
+        <div class="row">
+            <span class="label">Pandit:</span>
+            {{ invoice.appointment.pandit.user.username }}
+        </div>
+
+        <div class="row">
+            <span class="label">Service:</span>
+            {{ invoice.appointment.service }}
+        </div>
+
+        <div class="amount">
+            ₹{{ invoice.total_amount }}
+        </div>
+
+        <div class="secure-badge">
+            🔒 Secure Payment powered by Razorpay<br>
+            ✔ UPI • Cards • Netbanking • Wallet
+        </div>
+
+        <button id="rzp-button" class="pay-btn">
+            💳 Pay ₹{{ invoice.total_amount }}
+        </button>
+
+    </div>
+
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+document.getElementById('rzp-button').onclick = function (e) {
+    e.preventDefault();
+
+    const button = document.getElementById('rzp-button');
+    button.disabled = true;
+    button.innerText = "Processing...";
+
+    var options = {
+        key: "{{ razorpay_key }}",
+        amount: Number("{{ amount }}"),
+        currency: "INR",
+        name: "PoojaConnect",
+        description: "Pandit Service Payment",
+        order_id: "{{ order_id }}",
+
+        handler: function (response) {
+            window.location.href =
+                "/payment/verify/?payment_id=" + response.razorpay_payment_id +
+                "&order_id=" + response.razorpay_order_id +
+                "&signature=" + response.razorpay_signature;
+        },
+
+        theme: {
+            color: "#f97316"
+        }
+    };
+
+    var rzp = new Razorpay(options);
+    rzp.open();
+
+    rzp.on('payment.failed', function () {
+        button.disabled = false;
+        button.innerText = "💳 Pay ₹{{ invoice.total_amount }}";
+    });
+};
+</script>
+
+</body>
+</html>

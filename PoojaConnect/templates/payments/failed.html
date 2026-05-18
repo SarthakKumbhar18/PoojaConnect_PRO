@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Failed - PoojaConnect</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #7c2d12, #b45309);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .failed-wrapper {
+            width: 500px;
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.3);
+        }
+
+        .failed-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        .info-box {
+            background: #fef2f2;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px solid #fecaca;
+            text-align: left;
+        }
+
+        .info-box p {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #dc2626;
+            margin-top: 10px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .retry {
+            background: #f97316;
+            color: white;
+        }
+
+        .retry:hover {
+            background: #ea580c;
+        }
+
+        .outline {
+            border: 2px solid #7c2d12;
+            color: #7c2d12;
+        }
+
+        .outline:hover {
+            background: #fff7ed;
+        }
+
+        .footer-note {
+            font-size: 12px;
+            margin-top: 20px;
+            color: #9ca3af;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="failed-wrapper">
+
+    <div class="failed-icon">❌</div>
+
+    <div class="title">
+        Payment Failed
+    </div>
+
+    <div class="subtitle">
+        Don’t worry. Your money has not been deducted.<br>
+        Please try again to complete your booking 🙏
+    </div>
+
+    <div class="info-box">
+        <p><strong>Invoice ID:</strong> #{{ invoice.id }}</p>
+        <p><strong>Service:</strong> {{ invoice.appointment.service }}</p>
+        <p><strong>Pandit:</strong> {{ invoice.appointment.pandit.user.username }}</p>
+        <div class="amount">
+            ₹{{ invoice.total_amount }}
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <a href="{% url 'make_payment' invoice.id %}" class="btn retry">
+            🔄 Retry Payment
+        </a>
+
+        <a href="{% url 'user_dashboard' %}" class="btn outline">
+            Go to Dashboard
+        </a>
+    </div>
+
+    <div class="footer-note">
+        If the issue continues, please contact support.
+    </div>
+
+</div>
+
+</body>
+</html>

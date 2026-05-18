@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment - PoojaConnect</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff7ed, #fde68a);
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #7c2d12, #b45309);
+            padding: 25px 30px;
+            border-radius: 18px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .header h2 {
+            font-size: 20px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: #f97316;
+            padding: 8px 16px;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            background: #ea580c;
+        }
+
+        /* BOOKING CARD */
+        .booking-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(249, 115, 22, 0.15);
+            border: 1px solid #fed7aa;
+        }
+
+        /* TITLE */
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #7c2d12;
+            margin-bottom: 10px;
+        }
+
+        .card-sub {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        /* FORM */
+        form p {
+            margin-bottom: 18px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #fed7aa;
+            outline: none;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #f97316;
+        }
+
+        /* SUBMIT BUTTON */
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(249, 115, 22, 0.3);
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px) {
+            .container {
+                margin: 30px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h2>📅 Book Appointment</h2>
+
+            <a href="{% url 'pandit_list' %}" class="back-btn">
+                ← Back to Pandits
+            </a>
+        </div>
+
+        <!-- BOOKING CARD -->
+        <div class="booking-card">
+
+            <div class="card-title">
+                🙏 Appointment with {{ pandit.user.username }}
+            </div>
+
+            <div class="card-sub">
+                Select your preferred service, date and time to begin your spiritual journey.
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button type="submit" class="submit-btn">
+                    Confirm Booking
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const today = new Date().toISOString().split("T")[0];
+            const dateInput = document.querySelector("input[type='date']");
+            if (dateInput) {
+                dateInput.setAttribute("min", today);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

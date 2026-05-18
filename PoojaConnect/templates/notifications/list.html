@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications - PoojaConnect</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #fff7ed;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            color: #7c2d12;
+            font-size: 24px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            background: #f97316;
+            color: white;
+        }
+
+        .back-btn:hover {
+            background: #ea580c;
+        }
+
+        /* NOTIFICATION CARD */
+        .notification-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.12);
+            border: 1px solid #fed7aa;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .notification-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(249, 115, 22, 0.18);
+        }
+
+        .notification-card.unread {
+            border-left: 6px solid #f97316;
+            background: #fffaf3;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: #7c2d12;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .notification-message {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .notification-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        /* UNREAD DOT */
+        .dot {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 10px;
+            height: 10px;
+            background: #f97316;
+            border-radius: 50%;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 18px;
+            color: #6b7280;
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.12);
+            border: 1px solid #fed7aa;
+        }
+
+        .empty-state span {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h2>🔔 Notifications</h2>
+
+            {% if is_pandit %}
+            <a href="{% url 'pandit_dashboard' %}" class="back-btn">
+                ← Back to Dashboard
+            </a>
+            {% else %}
+            <a href="{% url 'user_dashboard' %}" class="back-btn">
+                ← Back to Dashboard
+            </a>
+            {% endif %}
+        </div>
+
+        <!-- NOTIFICATIONS LIST -->
+        {% for n in notifications %}
+
+        <div class="notification-card {% if not n.is_read %}unread{% endif %}">
+            <a href="{{ n.link }}" class="notification-link">
+
+                {% if not n.is_read %}
+                <div class="dot"></div>
+                {% endif %}
+
+                <div class="notification-title">
+                    {{ n.title }}
+                </div>
+
+                <div class="notification-message">
+                    {{ n.message }}
+                </div>
+
+                <div class="notification-time">
+                    {{ n.created_at|date:"d M Y, h:i A" }}
+                </div>
+
+            </a>
+        </div>
+
+        {% empty %}
+
+        <div class="empty-state">
+            <span>🙏</span>
+            No notifications yet.<br>
+            You will see updates about bookings, payments and video calls here.
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html>

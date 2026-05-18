@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PoojaConnect | Satyanarayan Puja</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .header-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.6rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text a {
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        /* PROFILE */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            width: 220px;
+            display: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: #374151;
+        }
+
+        .dropdown a:hover {
+            background: #f9fafb;
+            color: #f97316;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* PAGE */
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ea580c;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* TOP SECTION */
+
+        .top-section {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .top-section img {
+            width: 100%;
+            max-width: 350px;
+            height: 350px;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background: #f3f4f6;
+        }
+
+        .top-content {
+            flex: 1;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #374151;
+        }
+
+        /* SECTION */
+
+        .section {
+            margin-bottom: 35px;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            background: #fafafa;
+        }
+
+        .section h2 {
+            color: #ea580c;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .section ul {
+            padding-left: 20px;
+            line-height: 1.7;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="header-nav">
+
+        <div class="nav-container">
+
+            <div class="logo-text">
+                <a href="{% url 'home' %}"><u>PoojaConnect</u></a>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'puja' %}">Puja</a>
+                <a href="{% url 'temples' %}">Temple</a>
+                <a href="{% url 'library' %}">Library</a>
+                <a href="{% url 'astrology' %}">Astrology</a>
+                <a href="{% url 'help' %}">Help</a>
+
+                <div class="profile-wrapper">
+
+                    <div class="profile-icon" onclick="toggleDropdown()">
+                        <img src="{% static 'home/images/profile.jpg' %}">
+                    </div>
+
+                    <div id="profileDropdown" class="dropdown">
+                        <a href="{% url 'user_register' %}">Register as User</a>
+                        <a href="{% url 'user_login' %}">Login as User</a>
+                        <a href="{% url 'pandit_register' %}">Register as Pandit</a>
+                        <a href="{% url 'pandit_login' %}">Login as Pandit</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <div class="container">
+
+        <h1 class="title">Satyanarayan Puja</h1>
+
+        <div class="top-section">
+
+            <img src="{% static 'home/images/Puja/satyanarayn.jpg' %}" alt="Satyanarayan Puja">
+
+            <div class="top-content">
+
+                <p>
+                    Satyanarayan Puja is one of the most sacred and widely performed Hindu rituals dedicated to Lord
+                    Vishnu in his form as Satyanarayan, the embodiment of truth and righteousness. This puja is
+                    performed by devotees to seek divine blessings for prosperity, happiness, success, and peace in
+                    life.
+                </p>
+
+                <p>
+                    It is usually performed on auspicious occasions such as housewarming ceremonies, weddings,
+                    birthdays, festivals, and after achieving important milestones in life. Devotees believe that
+                    performing this puja with sincerity removes obstacles and brings harmony and spiritual growth.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>1. Samagri Required to Perform Satyanarayan Puja</h2>
+
+            <p>
+                Satyanarayan Puja is a sacred Hindu ritual dedicated to Lord Vishnu, performed to express gratitude and
+                devotion. The word “Satya” means truth and “Narayan” refers to Lord Vishnu, the protector of the
+                universe. The puja emphasizes the importance of living a truthful and righteous life.
+            </p>
+
+            <p>
+                During the ritual, devotees worship Lord Vishnu and listen to the Satyanarayan Katha, which contains
+                stories highlighting the benefits of devotion, honesty, and faith in divine power.
+            </p>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>2. Essential Puja Samagri (Items Required for the Ritual)</h2>
+
+            <ul>
+
+                <li>Kalash (holy pot filled with water)</li>
+                <li>Mango leaves and coconut</li>
+                <li>Flowers and garlands</li>
+                <li>Betel leaves and betel nuts</li>
+                <li>Incense sticks and camphor</li>
+                <li>Turmeric and kumkum</li>
+                <li>Bananas and fruits</li>
+                <li>Milk, curd, honey, sugar, and ghee</li>
+                <li>Prasad made from wheat flour, banana, sugar, and ghee</li>
+                <li>Rice grains</li>
+                <li>Holy thread (Kalava)</li>
+                <li>Satyanarayan Katha book</li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>3. Purpose and Importance of Performing Satyanarayan Puja</h2>
+
+            <ul>
+
+                <li>To seek blessings of Lord Vishnu for prosperity and success.</li>
+                <li>To remove obstacles and negative influences from life.</li>
+                <li>To bring peace, happiness, and harmony in the family.</li>
+                <li>To express gratitude for achievements and blessings received.</li>
+                <li>To strengthen spiritual faith and devotion.</li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>4. Historical and Religious Significance</h2>
+
+            <p>
+                The significance of Satyanarayan Puja is described in the Skanda Purana, one of the major ancient Hindu
+                scriptures. According to the text, Lord Vishnu himself advised devotees to perform this puja to overcome
+                difficulties and achieve success in life.
+            </p>
+
+            <p>
+                The Satyanarayan Katha narrates stories of devotees who were blessed with prosperity after performing
+                the puja with sincerity and faith. These stories emphasize the importance of truth, devotion, and
+                fulfilling promises made to God.
+            </p>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>5. Detailed Overview of the Satyanarayan Puja Ritual</h2>
+
+            <p>
+                Satyanarayan Puja is usually performed in the evening after completing daily rituals. The ceremony
+                begins with invoking Lord Ganesha to remove obstacles, followed by the worship of Lord Vishnu in the
+                form of Satyanarayan.
+            </p>
+
+            <p>
+                The main part of the ritual is the recitation of the Satyanarayan Katha, which explains the spiritual
+                importance of truth and devotion. After the prayer, devotees distribute prasad among family members and
+                guests as a symbol of divine blessings.
+            </p>
+
+            <p>
+                This puja is considered highly auspicious and is believed to bring good fortune, spiritual growth, and
+                divine protection to those who perform it with devotion.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                document.getElementById("profileDropdown").classList.remove("show");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

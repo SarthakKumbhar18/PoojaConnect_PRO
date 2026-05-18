@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PoojaConnect | Tamil Nadu Temples</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .header-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text a {
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        /* PROFILE */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 50px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            width: 200px;
+            display: none;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #374151;
+        }
+
+        .dropdown a:hover {
+            background: #f9fafb;
+            color: #f97316;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* PAGE */
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 30px;
+            color: #ea580c;
+        }
+
+        /* CARD */
+
+        .temple-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .temple-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .temple-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        h2 {
+            color: #ea580c;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-top: 15px;
+        }
+
+        .btn {
+            margin-top: 15px;
+            padding: 8px 15px;
+            background: #f97316;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .map {
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="header-nav">
+        <div class="nav-container">
+
+            <div class="logo-text">
+                <a href="{% url 'home' %}">PoojaConnect</a>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'puja' %}">Puja</a>
+                <a href="{% url 'temples' %}">Temple</a>
+                <a href="{% url 'library' %}">Library</a>
+                <a href="{% url 'astrology' %}">Astrology</a>
+                <a href="{% url 'help' %}">Help</a>
+
+                <div class="profile-wrapper">
+
+                    <div class="profile-icon" onclick="toggleDropdown()">
+                        <img src="{% static 'home/images/profile.jpg' %}">
+                    </div>
+
+                    <div id="profileDropdown" class="dropdown">
+                        <a href="{% url 'user_register' %}">Register as User</a>
+                        <a href="{% url 'user_login' %}">Login as User</a>
+                        <a href="{% url 'pandit_register' %}">Register as Pandit</a>
+                        <a href="{% url 'pandit_login' %}">Login as Pandit</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+
+    <div class="container">
+
+        <h1 class="title">Famous Temples of Tamil Nadu</h1>
+
+        <!-- MEENAKSHI -->
+
+        <div class="temple-card">
+            <img src="{% static 'home/images/Temple/temple_meenakshi.jpg' %}" class="temple-img">
+
+            <div class="content">
+
+                <h2>Meenakshi Amman Temple</h2>
+
+                <p><b>Location:</b> Madurai
+                    <a class="map" href="https://maps.google.com" target="_blank">Get Directions</a>
+                </p>
+
+                <div class="section"><b>Timings:</b> 5:00 AM – 10:00 PM</div>
+
+                <div class="section">
+                    <b>About:</b> Meenakshi Temple is one of the most iconic temples in India, dedicated to Goddess
+                    Meenakshi (Parvati) and Lord Sundareswarar (Shiva). The temple is famous for its colorful gopurams,
+                    intricate carvings, and grand architecture.
+                </div>
+
+                <div class="section">
+                    <b>Historical Significance:</b> The temple dates back to ancient times and was expanded during the
+                    Nayak dynasty. It represents the cultural and architectural brilliance of Dravidian temple style and
+                    is a major pilgrimage center.
+                </div>
+
+                <button class="btn">Book Puja (Coming Soon)</button>
+                <button class="btn">Contact Pandit (Coming Soon)</button>
+
+            </div>
+        </div>
+
+        <!-- RAMESHWARAM -->
+
+        <div class="temple-card">
+            <img src="{% static 'home/images/Temple/temple_ramanathswamy.jpg' %}" class="temple-img">
+
+            <div class="content">
+
+                <h2>Ramanathaswamy Temple</h2>
+
+                <p><b>Location:</b> Rameshwaram
+                    <a class="map" href="https://maps.google.com" target="_blank">Get Directions</a>
+                </p>
+
+                <div class="section"><b>Timings:</b> 5:00 AM – 9:00 PM</div>
+
+                <div class="section">
+                    <b>About:</b> Ramanathaswamy Temple is one of the twelve Jyotirlinga temples of Lord Shiva and an
+                    important pilgrimage site. It is also part of the Char Dham Yatra.
+                </div>
+
+                <div class="section">
+                    <b>Historical Significance:</b> According to Hindu mythology, Lord Rama worshipped Lord Shiva here
+                    before crossing to Lanka. The temple is known for its longest corridor among temples in India.
+                </div>
+
+                <button class="btn">Book Puja (Coming Soon)</button>
+                <button class="btn">Contact Pandit (Coming Soon)</button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                document.getElementById("profileDropdown").classList.remove("show");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

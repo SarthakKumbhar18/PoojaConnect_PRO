@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chats - PoojaConnect</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top left, #fed7aa 0%, transparent 40%),
+                radial-gradient(circle at bottom right, #fde68a 0%, transparent 40%),
+                #fff7ed;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 60px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 25px;
+            box-shadow: 0 30px 60px rgba(249, 115, 22, 0.15);
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .header h2 {
+            font-size: 26px;
+            color: #7c2d12;
+            letter-spacing: 0.5px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+            padding: 9px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+        }
+
+        /* CHAT CARD */
+        .chat-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+            background: white;
+            border: 1px solid #fed7aa;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.12);
+        }
+
+        .chat-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2);
+        }
+
+        .chat-card.unread {
+            background: linear-gradient(to right, #fffaf3, #ffffff);
+            border-left: 6px solid #f97316;
+        }
+
+        /* LEFT SECTION */
+        .chat-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        /* AVATAR */
+        .avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.4);
+        }
+
+        /* NAME */
+        .chat-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #7c2d12;
+        }
+
+        .chat-sub {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        /* BADGE */
+        .badge {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 8px 18px rgba(249, 115, 22, 0.4);
+            min-width: 28px;
+            text-align: center;
+        }
+
+        /* EMPTY */
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            background: white;
+            border-radius: 25px;
+            border: 1px solid #fed7aa;
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.1);
+        }
+
+        .empty-state span {
+            font-size: 45px;
+            display: block;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h2>💬 Chats</h2>
+
+            {% if is_pandit %}
+            <a href="{% url 'pandit_dashboard' %}" class="back-btn">
+                ← Back to Dashboard
+            </a>
+            {% else %}
+            <a href="{% url 'user_dashboard' %}" class="back-btn">
+                ← Back to Dashboard
+            </a>
+            {% endif %}
+        </div>
+
+        <!-- CHAT LIST -->
+        {% for item in chat_data %}
+
+        {% if request.user == item.chat.user %}
+        {% with other_user=item.chat.pandit %}
+        <a href="{% url 'chat_room' item.chat.id %}" class="chat-card {% if item.unread_count > 0 %}unread{% endif %}">
+
+            <div class="chat-left">
+                <div class="avatar">
+                    {{ other_user.username|first|upper }}
+                </div>
+
+                <div>
+                    <div class="chat-name">
+                        {{ other_user.username }}
+                    </div>
+                    <div class="chat-sub">
+                        Spiritual Conversation
+                    </div>
+                </div>
+            </div>
+
+            {% if item.unread_count > 0 %}
+            <div class="badge">
+                {{ item.unread_count }}
+            </div>
+            {% endif %}
+
+        </a>
+        {% endwith %}
+        {% else %}
+        {% with other_user=item.chat.user %}
+        <a href="{% url 'chat_room' item.chat.id %}" class="chat-card {% if item.unread_count > 0 %}unread{% endif %}">
+
+            <div class="chat-left">
+                <div class="avatar">
+                    {{ other_user.username|first|upper }}
+                </div>
+
+                <div>
+                    <div class="chat-name">
+                        {{ other_user.username }}
+                    </div>
+                    <div class="chat-sub">
+                        Spiritual Conversation
+                    </div>
+                </div>
+            </div>
+
+            {% if item.unread_count > 0 %}
+            <div class="badge">
+                {{ item.unread_count }}
+            </div>
+            {% endif %}
+
+        </a>
+        {% endwith %}
+        {% endif %}
+
+        {% empty %}
+
+        <div class="empty-state">
+            <span>🙏</span>
+            No chats yet.<br>
+            Start by booking a Pandit and begin your spiritual conversation.
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html>

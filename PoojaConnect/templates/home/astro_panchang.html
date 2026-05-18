@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+
+    <title>PoojaConnect - Panchang</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* GLOBAL */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .header-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        /* PROFILE */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            width: 220px;
+            display: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .dropdown a:hover {
+            background: #f9fafb;
+            color: #f97316;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* PAGE */
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        /* IMAGE SECTION */
+
+        .image-container {
+            margin-bottom: 40px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            background: #f9fafb;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+        }
+
+        .image-container .content {
+            padding: 30px;
+        }
+
+        .image-container h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+            color: #ea580c;
+        }
+
+        .image-container p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* SECTIONS */
+
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        .section h2 {
+            color: #ea580c;
+            margin-bottom: 15px;
+        }
+
+        .section h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .section p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .section ul {
+            padding-left: 20px;
+            color: #6b7280;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* TABLE DESIGN */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        table thead {
+            background: #f97316;
+            color: white;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        table tbody tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:768px) {
+
+            .image-container h1 {
+                font-size: 26px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="header-nav">
+        <div class="nav-container">
+
+            <div class="logo-text">
+                <a href="{% url 'home' %}">PoojaConnect</a>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'puja' %}">Puja</a>
+                <a href="{% url 'temples' %}">Temple</a>
+                <a href="{% url 'library' %}">Library</a>
+                <a href="{% url 'astrology' %}">Astrology</a>
+                <a href="{% url 'help' %}">Help</a>
+
+
+                <div class="profile-wrapper">
+
+                    <div class="profile-icon" onclick="toggleDropdown()">
+                        <img src="{% static 'home/images/profile.jpg' %}">
+                    </div>
+
+                    <div id="profileDropdown" class="dropdown">
+                        <a href="{% url 'user_register' %}">Register as User</a>
+                        <a href="{% url 'user_login' %}">Login as User</a>
+                        <a href="{% url 'pandit_register' %}">Register as Pandit</a>
+                        <a href="{% url 'pandit_login' %}">Login as Pandit</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+
+    <div class="container">
+
+        <div class="image-container">
+
+            <img src="{% static '/home/images/Astrology/panchang_view.jpg' %}">
+
+            <div class="content">
+
+                <h1>What is Panchang?</h1>
+
+                <p>Panchang is a Hindu Vedic calendar used to determine important dates and times for religious and
+                    cultural events. It is based on astronomical calculations and consists of five key elements:</p>
+
+                <ul>
+                    <li><strong>Tithi (Lunar Day):</strong> The phase of the moon.</li>
+                    <li><strong>Vara (Day of the Week):</strong> The seven days of the week.</li>
+                    <li><strong>Nakshatra (Constellation):</strong> The star in which the moon is positioned.</li>
+                    <li><strong>Yoga (Lunar Union):</strong> The combination of Sun and Moon positions.</li>
+                    <li><strong>Karana (Half Tithi):</strong> A half-day based on Tithi divisions.</li>
+                </ul>
+
+                <p>Panchang is essential in determining auspicious and inauspicious timings for rituals, festivals, and
+                    daily activities.</p>
+
+            </div>
+        </div>
+
+        <!-- EVERYTHING BELOW REMAINS EXACTLY THE SAME -->
+
+        <!-- Five Elements of Panchang -->
+
+        <div class="section">
+            <h2>Five Elements of Panchang</h2>
+
+            <!-- Tithi Table -->
+            <h3>1. Tithi (तिथि) - Lunar Day</h3>
+            <p>Tithi is the time taken by the Moon to move 12 degrees ahead of the Sun. There are 30 Tithis in a lunar
+                month, divided into two phases:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tithi Name</th>
+                        <th>Phase</th>
+                        <th>Importance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pratipada</td>
+                        <td>Both</td>
+                        <td>Beginning of festivals</td>
+                    </tr>
+                    <tr>
+                        <td>Dwitiya</td>
+                        <td>Both</td>
+                        <td>Bhai Dooj, important vrat</td>
+                    </tr>
+                    <tr>
+                        <td>Tritiya</td>
+                        <td>Both</td>
+                        <td>Akshaya Tritiya (wealth & success)</td>
+                    </tr>
+                    <tr>
+                        <td>Chaturthi</td>
+                        <td>Both</td>
+                        <td>Sankashti Chaturthi (Lord Ganesha)</td>
+                    </tr>
+                    <tr>
+                        <td>Panchami</td>
+                        <td>Both</td>
+                        <td>Nag Panchami (serpent worship)</td>
+                    </tr>
+                    <tr>
+                        <td>Shashthi</td>
+                        <td>Both</td>
+                        <td>Skanda Shashti (Lord Kartikeya)</td>
+                    </tr>
+                    <tr>
+                        <td>Saptami</td>
+                        <td>Both</td>
+                        <td>Ratha Saptami (Sun worship)</td>
+                    </tr>
+                    <tr>
+                        <td>Ashtami</td>
+                        <td>Both</td>
+                        <td>Krishna Janmashtami, Durga Ashtami</td>
+                    </tr>
+                    <tr>
+                        <td>Navami</td>
+                        <td>Both</td>
+                        <td>Ram Navami, Navratri</td>
+                    </tr>
+                    <tr>
+                        <td>Dashami</td>
+                        <td>Both</td>
+                        <td>Vijaya Dashami (Dussehra)</td>
+                    </tr>
+                    <tr>
+                        <td>Ekadashi</td>
+                        <td>Both</td>
+                        <td>Ekadashi fasting</td>
+                    </tr>
+                    <tr>
+                        <td>Dwadashi</td>
+                        <td>Both</td>
+                        <td>Mokshada Dwadashi</td>
+                    </tr>
+                    <tr>
+                        <td>Trayodashi</td>
+                        <td>Both</td>
+                        <td>Pradosh Vrat, Maha Shivratri</td>
+                    </tr>
+                    <tr>
+                        <td>Chaturdashi</td>
+                        <td>Both</td>
+                        <td>Naraka Chaturdashi</td>
+                    </tr>
+                    <tr>
+                        <td>Purnima</td>
+                        <td>Shukla</td>
+                        <td>Full Moon (Purnima) – important for fasting & rituals</td>
+                    </tr>
+                    <tr>
+                        <td>Amavasya</td>
+                        <td>Krishna</td>
+                        <td>No Moon (Amavasya) – Pitru Tarpan, ancestor prayers</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Vara Table -->
+            <h3>2. Vara (वार) - Days of the Week</h3>
+            <p>The seven days are ruled by different planets:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Planet</th>
+                        <th>Significance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sunday (Raviwar)</td>
+                        <td>Sun (Surya)</td>
+                        <td>Health & Leadership</td>
+                    </tr>
+                    <tr>
+                        <td>Monday (Somwar)</td>
+                        <td>Moon (Chandra)</td>
+                        <td>Emotions & Mind</td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday (Mangalwar)</td>
+                        <td>Mars (Mangal)</td>
+                        <td>Strength & Energy</td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday (Budhwar)</td>
+                        <td>Mercury (Budh)</td>
+                        <td>Intelligence & Communication</td>
+                    </tr>
+                    <tr>
+                        <td>Thursday (Guruvar)</td>
+                        <td>Jupiter (Guru)</td>
+                        <td>Knowledge & Prosperity</td>
+                    </tr>
+                    <tr>
+                        <td>Friday (Shukrawar)</td>
+                        <td>Venus (Shukra)</td>
+                        <td>Love & Luxury</td>
+                    </tr>
+                    <tr>
+                        <td>Saturday (Shanivar)</td>
+                        <td>Saturn (Shani)</td>
+                        <td>Discipline & Karma</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Nakshatra Table -->
+            <h3>3. Nakshatra (नक्षत्र) - Constellations</h3>
+            <p>Nakshatra refers to the 27 divisions of the zodiac, each representing a lunar mansion. Some important
+                ones:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nakshatra</th>
+                        <th>Significance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ashwini</td>
+                        <td>Healing & speed</td>
+                    </tr>
+                    <tr>
+                        <td>Rohini</td>
+                        <td>Creativity & prosperity</td>
+                    </tr>
+                    <tr>
+                        <td>Mrigashira</td>
+                        <td>Curiosity & travel</td>
+                    </tr>
+                    <tr>
+                        <td>Magha</td>
+                        <td>Royalty & ancestry</td>
+                    </tr>
+                    <tr>
+                        <td>Hasta</td>
+                        <td>Skill & craftsmanship</td>
+                    </tr>
+                    <tr>
+                        <td>Swati</td>
+                        <td>Independence & air element</td>
+                    </tr>
+                    <tr>
+                        <td>Anuradha</td>
+                        <td>Friendship & devotion</td>
+                    </tr>
+                    <tr>
+                        <td>Mula</td>
+                        <td>Transformation & spirituality</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Yoga Table -->
+            <h3>4. Yoga (योग) - Planetary Combination</h3>
+            <p>There are 27 Yogas, formed by the Sun-Moon positions. Some important ones:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Yoga</th>
+                        <th>Significance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vishkumbha</td>
+                        <td>Success & growth</td>
+                    </tr>
+                    <tr>
+                        <td>Priti</td>
+                        <td>Happiness & charm</td>
+                    </tr>
+                    <tr>
+                        <td>Shiva</td>
+                        <td>Auspicious for spiritual activities</td>
+                    </tr>
+                    <tr>
+                        <td>Siddha</td>
+                        <td>Best for achieving goals</td>
+                    </tr>
+                    <tr>
+                        <td>Vyatipata</td>
+                        <td>Considered inauspicious</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Karana Table -->
+            <h3>5. Karana (करण) - Half Tithi</h3>
+            <p>A Tithi is divided into two Karanas. There are 11 Karanas, classified into:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Karanas</th>
+                        <th>Significance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Movable Karanas</td>
+                        <td>Bava, Balava, Kaulava, Taitila, Garaja, Vanija</td>
+                        <td>Good for starting work</td>
+                    </tr>
+                    <tr>
+                        <td>Fixed Karanas</td>
+                        <td>Shakuni, Chatushpada, Nagava, Kimstughna</td>
+                        <td>Good for rituals</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Auspicious & Inauspicious Timings -->
+        <div class="section">
+            <h2>Auspicious & Inauspicious Timings in Panchang</h2>
+            <h3>Shubh Muhurat (Auspicious Timings)</h3>
+            <ul>
+                <li><strong>Abhijit Muhurat:</strong> Best time for important activities (near midday).</li>
+                <li><strong>Brahma Muhurat:</strong> Ideal for meditation and prayers (4:00 AM - 5:30 AM).</li>
+                <li><strong>Vijaya Muhurat:</strong> Best for victories and success.</li>
+            </ul>
+
+            <h3>Inauspicious Timings (Avoid for Major Work)</h3>
+            <ul>
+                <li><strong>Rahu Kaal (राहु काल):</strong> Time of Rahu, considered inauspicious for new beginnings.
+                </li>
+                <li><strong>Gulika Kaal:</strong> Not favorable for financial matters.</li>
+                <li><strong>Yamaganda Kaal:</strong> Avoid important travel or decisions.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                document.getElementById("profileDropdown").classList.remove("show");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

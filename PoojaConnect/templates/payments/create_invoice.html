@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+{% load static %}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Invoice | PoojaConnect</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== BASIC ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #fff7ed;
+}
+
+/* ===== CONTAINER ===== */
+
+.container {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 20px;
+}
+
+/* ===== CARD ===== */
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(249,115,22,0.15);
+    border: 1px solid #fed7aa;
+}
+
+/* ===== TITLE ===== */
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    color: #7c2d12;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* ===== FORM ===== */
+
+label {
+    font-size: 14px;
+    color: #6b7280;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #f97316;
+}
+
+/* ===== BUTTONS ===== */
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background: #f97316;
+    color: white;
+}
+
+.btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2 class="title">🧾 Create Invoice</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label>Base Fee</label>
+            <input type="number" name="base_fee" required>
+
+            <label>Pooja Material Fee</label>
+            <input type="number" name="material_fee">
+
+            <label>Travel/Miscellaneous Fee</label>
+            <input type="number" name="travel_fee">
+
+            <button type="submit" class="btn btn-primary">
+                Generate Invoice
+            </button>
+
+        </form>
+
+        <!-- BACK BUTTON -->
+        <a href="{% url 'pandit_dashboard' %}" class="btn btn-secondary">
+            ⬅ Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

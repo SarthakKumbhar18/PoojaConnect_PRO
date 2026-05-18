@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+
+    <title>Horoscope Information - PoojaConnect</title>
+
+    <link rel="stylesheet" href="{% static 'css/horoscope_view.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* GLOBAL */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .header-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        /* PROFILE DROPDOWN */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            width: 220px;
+            display: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .dropdown a:hover {
+            background: #f9fafb;
+            color: #f97316;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* PAGE */
+
+        main {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        /* ZODIAC CARD */
+
+        .zodiac-card {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        .zodiac-card:hover {
+            transform: translateY(-5px);
+            transition: 0.3s;
+        }
+
+        .image-container img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+        }
+
+        .info-container h2 {
+            color: #ea580c;
+            margin-bottom: 8px;
+        }
+
+        .info-container p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:768px) {
+
+            .zodiac-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="header-nav">
+        <div class="nav-container">
+
+            <div class="logo-text">
+                <a href="{% url 'home' %}">PoojaConnect</a>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'puja' %}">Puja</a>
+                <a href="{% url 'temples' %}">Temple</a>
+                <a href="{% url 'library' %}">Library</a>
+                <a href="{% url 'astrology' %}">Astrology</a>
+                <a href="{% url 'help' %}">Help</a>
+
+
+                <div class="profile-wrapper">
+
+                    <div class="profile-icon" onclick="toggleDropdown()">
+                        <img src="{% static 'home/images/profile.jpg' %}">
+                    </div>
+
+                    <div id="profileDropdown" class="dropdown">
+                        <a href="{% url 'user_register' %}">Register as User</a>
+                        <a href="{% url 'user_login' %}">Login as User</a>
+                        <a href="{% url 'pandit_register' %}">Register as Pandit</a>
+                        <a href="{% url 'pandit_login' %}">Login as Pandit</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+        <!-- Aries -->
+        <section id="aries" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/aries.jpg' %}" alt="Aries" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♈ Aries (March 21 - April 19)</h2>
+                <p>Aries is a fire sign ruled by Mars, symbolizing energy, courage, and leadership. Aries individuals
+                    are bold, ambitious, and not afraid to take risks. They are natural leaders but can be impulsive and
+                    impatient.</p>
+                <p>They enjoy challenges and often take initiative in difficult situations. Aries people are passionate,
+                    confident, and highly motivated to achieve their goals. However, they may sometimes act quickly
+                    without thinking about the consequences.</p>
+            </div>
+        </section>
+
+        <!-- Taurus -->
+        <section id="taurus" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/taurus.jpg' %}" alt="Taurus" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♉ Taurus (April 20 - May 20)</h2>
+                <p>Taurus is an earth sign ruled by Venus, representing stability, loyalty, and comfort. Taureans are
+                    practical and hardworking, enjoying luxury and security. However, they can also be stubborn and
+                    resistant to change.</p>
+                <p>They value consistency and prefer a well-planned life rather than sudden changes. Taurus individuals
+                    are reliable, patient, and supportive friends who appreciate beauty, good food, and peaceful
+                    environments. Their determination helps them achieve long-term goals.</p>
+            </div>
+        </section>
+
+        <!-- Gemini -->
+        <section id="gemini" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/gemini.jpg' %}" alt="Gemini" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♊ Gemini (May 21 - June 20)</h2>
+                <p>Gemini is an air sign ruled by Mercury, known for intelligence, communication, and adaptability.
+                    Geminis are social, curious, and quick learners, but they can also be indecisive and restless.</p>
+                <p>They enjoy conversations, learning new things, and meeting different people. Gemini individuals are
+                    creative thinkers and often have many ideas at once. However, their constantly active mind can
+                    sometimes make it difficult for them to stay focused on one thing.</p>
+            </div>
+        </section>
+
+        <!-- Add more zodiac signs here following the same structure -->
+        <section id="gemini" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/cancer.jpg' %}" alt="Cancer" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♋ Cancer (June 21 - July 22)</h2>
+                <p>Cancer is a water sign ruled by the Moon, symbolizing emotions, intuition, and nurturing. Cancerians
+                    are deeply caring and protective of loved ones. However, they may also be moody and overly
+                    sensitive.</p>
+                <p>They value family, home, and close relationships, often putting others' needs before their own.
+                    Cancer individuals are loyal, empathetic, and supportive, making them great friends and partners.
+                    Their strong intuition helps them understand people’s feelings easily.</p>
+            </div>
+        </section>
+        <section id="gemini" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/leo.jpg' %}" alt="Leo" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♌ Leo (July 23 - August 22)</h2>
+                <p>Leo is a fire sign ruled by the Sun, associated with confidence, charisma, and creativity. Leos are
+                    natural entertainers and leaders, always seeking attention and admiration. They can sometimes be
+                    prideful or dramatic.</p>
+                <p>They enjoy being in the spotlight and inspiring others with their enthusiasm and positivity. Leo
+                    individuals are generous, loyal, and protective of their loved ones. Their strong personality and
+                    determination often help them achieve great success.</p>
+            </div>
+        </section>
+        <section id="gemini" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/virgo.jpg' %}" alt="Virgo" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♍ Virgo (August 23 - September 22)</h2>
+                <p>Virgo is an earth sign ruled by Mercury, representing practicality, organization, and intelligence.
+                    Virgos are detail-oriented, analytical, and hardworking, but they can also be overly critical and
+                    perfectionists.</p>
+                <p>They enjoy planning, solving problems, and improving things around them. Virgo individuals are
+                    responsible, reliable, and always try to give their best in any task. Their sharp observation skills
+                    help them notice small details that others may overlook.</p>
+            </div>
+        </section>
+        <section id="gemini" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/libra.jpg' %}" alt="Libra" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♎ Libra (September 23 - October 22)</h2>
+                <p>Libra is an air sign ruled by Venus, known for balance, beauty, and diplomacy. Librans seek harmony
+                    in relationships and have a strong sense of justice. However, they may struggle with indecisiveness
+                    and a desire to please everyone.</p>
+                <p>They value peace, fairness, and meaningful connections with others. Libra individuals are charming,
+                    friendly, and good at resolving conflicts. Their love for art, beauty, and elegance often makes them
+                    creative and stylish.</p>
+            </div>
+        </section>
+        <section id="gemini" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/scorpio.jpg' %}" alt="Scorpio" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♏ Scorpio (October 23 - November 21)</h2>
+                <p>Scorpio is a water sign ruled by Pluto and Mars, symbolizing passion, mystery, and transformation.
+                    Scorpios are intense, determined, and deeply emotional, but they can also be secretive and vengeful.
+                </p>
+                <p>They are highly focused and do not give up easily when pursuing their goals. Scorpio individuals are
+                    loyal and protective of the people they care about. Their strong intuition and emotional depth help
+                    them understand situations and people very well.</p>
+            </div>
+        </section>
+        <section id="gemini" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/sagittarius.jpg' %}" alt="Sagittarius" width="200"
+                    height="200">
+            </div>
+            <div class="info-container">
+                <h2>♐ Sagittarius (November 22 - December 21)</h2>
+                <p>Sagittarius is a fire sign ruled by Jupiter, representing adventure, optimism, and freedom.
+                    Sagittarians love exploring new ideas and places. However, they can be reckless and blunt at times.
+                </p>
+                <p>They are curious and always eager to learn about different cultures, philosophies, and experiences.
+                    Sagittarius individuals are energetic, open-minded, and enthusiastic about life. Their positive
+                    attitude often inspires others around them.</p>
+            </div>
+        </section>
+        <section id="gemini" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/capricorn.jpg' %}" alt="Capricorn" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♑ Capricorn (December 22 - January 19)</h2>
+                <p>Capricorn is an earth sign ruled by Saturn, symbolizing discipline, ambition, and responsibility.
+                    Capricorns are hardworking and goal-oriented, but they may sometimes be too serious or pessimistic.
+                </p>
+                <p>They believe in planning, patience, and consistent effort to achieve success. Capricorn individuals
+                    are reliable, practical, and highly determined. Their strong sense of responsibility often makes
+                    them dependable leaders and trusted friends.</p>
+            </div>
+        </section>
+        <section id="gemini" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/aquarius.jpg' %}" alt="Aquarius" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♒ Aquarius (January 20 - February 18)</h2>
+                <p>Aquarius is an air sign ruled by Uranus and Saturn, associated with innovation, independence, and
+                    humanitarianism. Aquarians are forward-thinking and unique but may come across as detached or
+                    rebellious.</p>
+                <p>They enjoy exploring new ideas and thinking differently from others. Aquarius individuals are
+                    intelligent, creative, and often interested in helping society or bringing positive change. Their
+                    independent nature makes them value freedom and individuality.</p>
+            </div>
+        </section>
+        <section id="gemini" class="zodiac-card">
+            <div class="image-container">
+                <img src="{% static 'home/images/Astrology/pisces.jpg' %}" alt="Pisces" width="200" height="200">
+            </div>
+            <div class="info-container">
+                <h2>♓ Pisces (February 19 - March 20)</h2>
+                <p>Pisces is a water sign ruled by Neptune, symbolizing intuition, empathy, and creativity. Pisceans are
+                    dreamy and compassionate, often drawn to artistic pursuits. However, they can be overly idealistic
+                    or escapist.</p>
+                <p>They are deeply emotional and easily connect with the feelings of others. Pisces individuals are
+                    imaginative, kind, and supportive, often helping people in difficult times. Their creativity and
+                    sensitivity make them naturally artistic and thoughtful.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                document.getElementById("profileDropdown").classList.remove("show");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chat - PoojaConnect</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #fff7ed, #fde68a);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* ================= HEADER ================= */
+.header {
+    background: linear-gradient(135deg, #7c2d12, #b45309);
+    padding: 18px 25px;
+    display: flex;
+    justify-content: flex-end;   /* Moves button to right */
+}
+
+.back-btn {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ================= CENTER CARD ================= */
+.chat-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.chat-card {
+    width: 100%;
+    max-width: 900px;
+    height: 75vh;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ================= CARD HEADER ================= */
+.card-header {
+    padding: 18px 25px;
+    border-bottom: 1px solid #f3f4f6;
+    font-weight: 600;
+    font-size: 18px;
+    color: #7c2d12;
+    background: #fffaf3;
+}
+
+/* ================= MESSAGE AREA ================= */
+.chat-box {
+    flex: 1;
+    padding: 25px;
+    overflow-y: auto;
+    background: #fffaf3;
+}
+
+.message-row {
+    margin-bottom: 18px;
+    display: flex;
+}
+
+.message-row.sent {
+    justify-content: flex-end;
+}
+
+.message-row.received {
+    justify-content: flex-start;
+}
+
+.message {
+    display: inline-block;
+    padding: 14px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.sent .message {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.received .message {
+    background: white;
+    border-bottom-left-radius: 5px;
+}
+
+.timestamp {
+    font-size: 10px;
+    margin-top: 8px;
+    opacity: 0.7;
+    text-align: right;
+}
+
+/* ================= ATTACHMENT ================= */
+.attachment {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.05);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.sent .attachment {
+    background: rgba(255,255,255,0.2);
+}
+
+.attachment a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+}
+
+/* ================= INPUT AREA ================= */
+.input-area {
+    display: flex;
+    padding: 15px 20px;
+    background: white;
+    border-top: 1px solid #f3f4f6;
+    gap: 10px;
+}
+
+.input-area input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    border-radius: 25px;
+    border: 1px solid #fed7aa;
+    outline: none;
+}
+
+.input-area input[type="file"] {
+    font-size: 13px;
+}
+
+.send-btn {
+    background: #15803d;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.send-btn:hover {
+    background: #166534;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER (Back only) -->
+<div class="header">
+    <a href="{% url 'chat_list' %}" class="back-btn">← Back to Chats</a>
+</div>
+
+<div class="chat-wrapper">
+
+    <div class="chat-card">
+
+        <!-- Pandit/User Name Inside Card -->
+        <div class="card-header">
+            {% if request.user == room.user %}
+                {{ room.pandit.username }}
+            {% else %}
+                {{ room.user.username }}
+            {% endif %}
+        </div>
+
+        <!-- Messages -->
+        <div class="chat-box" id="chatBox">
+            {% for msg in messages %}
+                <div class="message-row {% if msg.sender == request.user %}sent{% else %}received{% endif %}">
+                    <div class="message">
+                        
+                        {{ msg.text }}
+
+                        {% if msg.attachment %}
+                            <div class="attachment">
+                                📎 
+                                <a href="{{ msg.attachment.url }}" target="_blank">
+                                    {{ msg.attachment.name|cut:"attachments/" }}
+                                </a>
+                            </div>
+                        {% endif %}
+
+                        <div class="timestamp">
+                            {{ msg.timestamp|date:"d M Y, h:i A" }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Input -->
+        <form method="post" enctype="multipart/form-data" class="input-area">
+            {% csrf_token %}
+            <input type="text" name="message" placeholder="Type your message..." required>
+            <input type="file" name="attachment">
+            <button type="submit" class="send-btn">Send</button>
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+const chatBox = document.getElementById("chatBox");
+chatBox.scrollTop = chatBox.scrollHeight;
+</script>
+
+</body>
+</html>

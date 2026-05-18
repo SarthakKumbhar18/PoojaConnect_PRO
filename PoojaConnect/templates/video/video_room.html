@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Video Call</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #root {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- VERY IMPORTANT: This container was missing -->
+    <div id="root"></div>
+
+    <!-- Zego Script -->
+    <script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+
+    <script>
+        window.onload = function () {
+
+            const roomID = "{{ room_name }}";
+            const userID = "{{ user_id }}";
+            const userName = "{{ user_name }}";
+            const appID = {{ app_id }};
+            const serverSecret = "{{ server_secret }}";  // CORRECT VARIABLE
+
+            console.log("Room:", roomID);
+            console.log("User:", userID);
+            console.log("AppID:", appID);
+
+            const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+                appID,
+                serverSecret,
+                roomID,
+                userID,
+                userName
+            );
+
+            const zp = ZegoUIKitPrebuilt.create(kitToken);
+
+            zp.joinRoom({
+                container: document.querySelector("#root"),
+
+                scenario: {
+                    mode: ZegoUIKitPrebuilt.VideoConference,
+                },
+
+                turnOnMicrophoneWhenJoining: false,
+                turnOnCameraWhenJoining: false,
+                showTextChat: true,
+                showUserList: true,
+                showScreenSharingButton: true,
+
+                onLeaveRoom: () => {
+                    {% if is_pandit %}
+                        window.location.href = "/pandits/dashboard/";
+                    {% else %}
+                        window.location.href = "/users/dashboard/";
+                    {% endif %}
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

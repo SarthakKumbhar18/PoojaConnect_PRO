@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {%load static%}
+    <title>PoojaConnect - Home</title>
+    <!-- Font / css approximation (simplified) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #ffffff;
+            color: #111827;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+        }
+
+        .max-w-screen-xl {
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* header / nav */
+        .header-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .nav-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            padding: 0.4rem 1rem;
+            background: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: #f3f4f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        /* hero swiper (simulated static) */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(97deg, rgba(30, 27, 75, 0.7), rgba(45, 26, 60, 0.7));
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            color: white;
+            max-width: 600px;
+            padding: 0 5%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            background-size: cover;
+            background-position: center;
+        }
+
+
+
+        .hero-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title span {
+            color: #fbbf24;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: black;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* trusted bar */
+        .trusted-bar {
+            background: #f97316;
+            color: white;
+            padding: 0.8rem 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            font-weight: 600;
+        }
+
+        /* section style */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* cards */
+        .card-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            padding: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .card-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .puja-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.02);
+            transition: 0.2s;
+        }
+
+        .puja-card:hover {
+            box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img {
+            height: 200px;
+            background: #d1d5db;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-tag {
+            background: #dc2626;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            display: inline-block;
+            margin: 1rem 0 0.25rem 1rem;
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin: 0.5rem 1rem;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 1rem;
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+
+        .card-footer {
+            padding: 1rem;
+            border-top: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .participate-btn {
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.8rem;
+            border-radius: 2rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* video section */
+        .video-scroll {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem;
+        }
+
+        .video-thumb {
+            width: 260px;
+            height: 340px;
+            border-radius: 1.5rem;
+            background: #1f2937;
+            position: relative;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            backdrop-filter: blur(4px);
+        }
+
+        /* reviews */
+        .review-slider {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem;
+        }
+
+        .review-card {
+            min-width: 280px;
+            background: #f9fafb;
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+
+        /* stats */
+        .stats-section {
+            background: linear-gradient(135deg, #0f1a2e, #142b4b);
+            color: white;
+            padding: 3rem 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 1280px;
+            margin: 2rem auto 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        /* features */
+        .features-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            padding: 2rem 1rem;
+        }
+
+        /* footer */
+        .footer {
+            background: #e38921;
+            color: white;
+            padding: 2rem 1rem;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer a {
+            color: #ffe7cc;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* bottom app download */
+        .app-download {
+            background: #f3f4f6;
+            padding: 1.5rem;
+            border-radius: 2rem;
+            margin: 2rem auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1000px;
+        }
+
+        .store-badge {
+            height: 48px;
+        }
+
+        /* utility */
+        .bg-orange {
+            background-color: #f97316;
+        }
+
+        .text-orange {
+            color: #f97316;
+        }
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            background: #f3f4f6;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            width: 220px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .dropdown a:hover {
+            background: #f9fafb;
+            color: #f97316;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="__next">
+        <header class="header-nav">
+            <div class="nav-container">
+                <div class="logo-area">
+                    <span class="logo-text"><a href="{% url 'home' %}">PoojaConnect</a></span>
+                </div>
+                <div class="nav-links">
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'puja' %}">Puja</a>
+                    <a href="{% url 'temples' %}">Temple</a>
+                    <a href="{% url 'library' %}">Library</a>
+                    <a href="{% url 'astrology' %}">Astrology</a>
+                    <a href="{% url 'help' %}">Help</a>
+
+                    <div class="profile-wrapper" style="position:relative; margin-left:1rem;">
+
+                        <div onclick="toggleDropdown()" style="
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:#f3f4f6;
+            border:1px solid #e5e7eb;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            cursor:pointer;
+            overflow:hidden;
+         ">
+
+                            <img src="{% static 'home/images/profile.jpg' %}" alt="Profile" style="
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                border-radius:50%;
+             ">
+                        </div>
+
+                        <div id="profileDropdown" class="dropdown">
+                            <a href="{% url 'user_register' %}">Register as User</a>
+                            <a href="{% url 'user_login' %}">Login as User</a>
+                            <a href="{% url 'pandit_register' %}">Register as Pandit</a>
+                            <a href="{% url 'pandit_login' %}">Login as Pandit</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- main content -->
+        <main>
+            <!-- hero carousel (static slide) -->
+            <div class="hero">
+                <img src="{%static 'home/images/homebanner.jpg'%}" alt="Divine Pooja Banner" class="hero-image">
+
+                <div class="hero-overlay"></div>
+
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Experience Divine Blessings <br>
+                        Through <span>PoojaConnect</span>
+                    </h1>
+
+                    <p class="hero-sub">
+                        Book authentic pujas, chadhava and sacred rituals performed by trusted pandits —
+                        bringing spiritual peace directly to your home.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#" class="btn-primary">Book Puja</a>
+                        <a href="#" class="btn-outline">Explore Temples</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- trusted strip -->
+            <div class="trusted-bar">
+                <span>✅ Trusted by 5M+ devotees</span>
+                <span>🔒 100% Secure</span>
+                <span>🛕 India's growing devotional app</span>
+            </div>
+
+            <!-- special pujas section -->
+            <section style="padding: 3rem 0.5rem;">
+                <h2 class="section-title"><span style="color:#b453b6;">PoojaConnect</span> Special Pujas</h2>
+                <p class="section-sub">Begin 2026 with faith – get special pujas performed in your name at powerful
+                    temples.</p>
+
+                <div class="card-grid max-w-screen-xl">
+                    <!-- card 1 -->
+                    <div class="puja-card">
+                        <div class="card-img"
+                            style="background-image: url('https://placehold.co/400x250/7f1d1d/white?text=Baidyanath+Temple');">
+                        </div>
+                        <h3 class="card-title">Baidyanath Jyotirlinga Rudrabhishek</h3>
+                        <div class="card-meta">📍 Baidyanath Dham, Deoghar, Jharkhand</div>
+                        <div class="card-footer">
+                            <span style="font-weight:600; color:#b91c1c;">For Health & Harmony</span>
+                        </div>
+                    </div>
+                    <!-- card 2 -->
+                    <div class="puja-card">
+                        <div class="card-img"
+                            style="background-image: url('https://placehold.co/400x250/1e3a8a/white?text=Omkareshwar');">
+                        </div>
+                        <h3 class="card-title">Omkareshwar Mahamrityunjaya Jaap</h3>
+                        <div class="card-meta">📍 Omkareshwar Jyotirlinga, Madhya pradesh</div>
+                        <div class="card-footer">
+                            <span style="font-weight:600; color:#b91c1c;">Divine Protection</span>
+                        </div>
+                    </div>
+                    <!-- card 3 -->
+                    <div class="puja-card">
+                        <div class="card-img"
+                            style="background-image: url('https://placehold.co/400x250/854d0e/white?text=Mahakaleshwar');">
+                        </div>
+                        <h3 class="card-title">Mahakaleshwar Bhasma Aarti & Rudrabhishek</h3>
+                        <div class="card-meta">📍 Mahakaleshwar, Ujjain, Madhya pradesh</div>
+                        <div class="card-footer">
+                            <span style="font-weight:600; color:#b91c1c;">Peace & Prosperity</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center; margin-top:2rem;">
+                    <a href="/puja" style="color:#f97316; font-weight:600;">View All Pujas →</a>
+                </div>
+            </section>
+
+            <!-- video testimonial section: "Can a puja done on your behalf be effective?" -->
+            <section style="background:#fafafa; padding:2.5rem 1rem;">
+                <h2 class="section-title">
+                    How to Perform Puja Correctly & Why It Is Important
+                </h2>
+                <p class="section-sub">
+                    Understand the true significance of performing puja in the right way.
+                    Learn its spiritual importance, benefits in daily life, and listen to trusted experts
+                    as they guide you through authentic Vedic rituals and their deeper meaning.
+                </p>
+
+                <div class="video-scroll max-w-screen-xl" style="margin:0 auto;">
+
+                    <!-- Video 1 -->
+                    <div class="youtube-card">
+                        <iframe src="https://www.youtube.com/embed/BXRnIrxWQqw" title="YouTube video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <!-- Video 2 -->
+                    <div class="youtube-card">
+                        <iframe src="https://www.youtube.com/embed/3nKgjPXwFCo?si=0M-zFt8y7Nm9yCJG"
+                            title="YouTube video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <!-- Video 3 -->
+                    <div class="youtube-card">
+                        <iframe src="https://www.youtube.com/embed/Fya7C5qlvPY?si=zTL1F5DED6NhSoig"
+                            title="YouTube video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+                            allowfullscreen></iframe>
+                    </div>
+
+                    <!-- Video 4 -->
+                    <div class="youtube-card">
+                        <iframe src="https://www.youtube.com/embed/QfyMc1rJtX8?si=AvwwYTg0CpBrgigx"
+                            title="YouTube video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+                            allowfullscreen></iframe>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- Reviews & Ratings -->
+            <section style="padding: 3rem 1rem;">
+                <h2 class="section-title">Reviews & Ratings</h2>
+                <p class="section-sub">Read what devotees say about PoojaConnect.</p>
+                <div class="review-slider max-w-screen-xl" style="margin:0 auto;">
+                    <div class="review-card">
+                        <p>“Every morning I light diya in the temple, this has become my daily routine through
+                            PoojaConnect.”</p>
+                        <div class="reviewer">
+                            <div class="avatar"></div>
+                            <div><strong>Namita Shukla</strong><br>Lucknow</div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <p>“I express heartfelt thanks to PoojaConnect for allowing us to see and worship anytime. Jai
+                            Sitaram!”</p>
+                        <div class="reviewer">
+                            <div class="avatar"></div>
+                            <div><strong>J.P. Pagal</strong><br>Bihar</div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <p>“Puja video was shared on time, and the Aashirwad box gave us divine feeling. Very grateful.”
+                        </p>
+                        <div class="reviewer">
+                            <div class="avatar"></div>
+                            <div><strong>Ramesh Bhatt</strong><br>Nagpur</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- stats: Trusted by millions -->
+            <div class="stats-section">
+                <h2 style="font-size:2rem; font-weight:700; text-align:center;">India's Growing Devotional Platform</h2>
+                <p style="text-align:center; max-width:700px; margin:1rem auto;">We are committed to serving millions of
+                    devotees worldwide.</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">5M+</div>
+                        <div>Devotees</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4.7★</div>
+                        <div>Rating (50k+ reviews)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">25+</div>
+                        <div>Countries</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2M+</div>
+                        <div>Pujas & Chadhava</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- features: One app all needs -->
+            <section style="padding: 3rem 1rem;">
+                <h2 class="section-title">Everything You Need for Your Devotional Journey</h2>
+                <p class="section-sub">PoojaConnect brings amazing free features to start your devotional journey.</p>
+                <div class="features-grid max-w-screen-xl">
+                    <div>
+                        <h3>🛕 Divine Temple</h3>
+                        <p>Set up your personal temple on phone.</p>
+                    </div>
+                    <div>
+                        <h3>📚 Hindu Literature</h3>
+                        <p>Curated articles, books & videos.</p>
+                    </div>
+                    <div>
+                        <h3>🎵 Devotional Music</h3>
+                        <p>5000+ aartis, mantras, bhajans.</p>
+                    </div>
+                    <div>
+                        <h3>📅 Panchang & Festivals</h3>
+                        <p>Daily horoscope, tithi, upcoming vrats.</p>
+                    </div>
+                    <div>
+                        <h3>🙏 Puja & Chadhava Seva</h3>
+                        <p>Book personalized pujas at top temples.</p>
+                    </div>
+                    <div>
+                        <h3>👥 Sanatani Community</h3>
+                        <p>Connect with like-minded devotees.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- articles preview -->
+            <section style="background:#f9fafb; padding:2.5rem 1rem;">
+                <div style="max-width:1280px; margin:0 auto;">
+                    <h2 class="section-title">Divine Collection of Aarti, Chalisa, Mantra & Bhajan</h2>
+                    <div class="card-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;">
+
+                        <!-- Aarti -->
+                        <div>
+                            <a href="#">
+                                <img src="{%static 'home/images/Aarti.jpg'%}" alt="Aarti Image"
+                                    style="width:100%; height:160px; object-fit:cover; border-radius:0.75rem;"></a>
+                            <h4 style="margin-top:1rem;">Aarti</h4>
+                            <p>Complete lyrics of famous aartis</p>
+
+                        </div>
+
+                        <!-- Chalisa -->
+                        <div>
+                            <a href="#">
+                                <img src="{%static 'home/images/chalisa1.jpg'%}" alt="Chalisa Image"
+                                    style="width:100%; height:160px; object-fit:cover; border-radius:0.75rem;"></a>
+                            <h4>Chalisa</h4>
+                            <p>Hanuman, Shiva, Ram Chalisa</p>
+                        </div>
+
+                        <!-- Mantra -->
+                        <div>
+                            <a href="#">
+                                <img src="{%static 'home/images/mantra.jpg'%}" alt="Mantra Image"
+                                    style="width:100%; height:160px; object-fit:cover; border-radius:0.75rem;"></a>
+                            <h4>Mantra</h4>
+                            <p>Powerful mantras for peace</p>
+                        </div>
+
+                        <!-- Bhajan -->
+                        <div>
+                            <a href="#">
+                                <img src="{%static 'home/images/bhajan.jpg'%}" alt="Bhajan Image"
+                                    style="width:100%; height:160px; object-fit:cover; border-radius:0.75rem;"></a>
+                            <h4>Bhajan</h4>
+                            <p>Melodious bhajans to uplift your spirit</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <div>
+                    <h4 style="margin-bottom:1rem;">PoojaConnect</h4>
+                    <p style="font-size:0.9rem; opacity:0.9;">Serving devotees by connecting them with temples &
+                        pandits.
+                        Partnering with 100+ temples.</p>
+                </div>
+                <div>
+                    <h4>Company</h4>
+                    <ul style="list-style:none; margin-top:0.5rem;">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Services</h4>
+                    <ul style="list-style:none;">
+                        <li><a href="#">Puja</a></li>
+                        <li><a href="#">Temples</a></li>
+                        <li><a href="#">Library</a></li>
+                        <li><a href="#">Astrology</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Our Address</h4>
+                    <address style="font-style:normal; font-size:0.85rem;">PoojaConnect Tech Pvt. Ltd., Pune,
+                        Maharashtra
+                    </address>
+                    <div class="social-icons">
+                        <a href="#">📘</a><a href="#">📷</a><a href="#">X</a><a href="#">▶️</a>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-color:#fbbf24; margin:2rem 0 1rem;">
+            <div
+                style="display:flex; justify-content:space-between; align-items:center; max-width:1280px; margin:0 auto; flex-wrap:wrap; gap:1rem;">
+                <div>© 2026 PoojaConnect, Inc. All rights reserved.</div>
+                <div><a href="#">Privacy</a> · <a href="#">Terms</a></div>
+                <div>
+                    <img src="https://placehold.co/110x30/ffffff/4b5563?text=Razorpay"
+                        style="display:inline; margin-right:0.5rem;" alt="pay">
+                    <img src="https://placehold.co/40x40/ffffff/4b5563?text=ISO" style="display:inline;" alt="iso">
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- dummy scripts (just placeholder) -->
+    <script>
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                document.getElementById("profileDropdown").classList.remove("show");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+
+    <title>PoojaConnect - Gemstone Remedies</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* GLOBAL */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .header-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        /* PROFILE */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            width: 220px;
+            display: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .dropdown a:hover {
+            background: #f9fafb;
+            color: #f97316;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* PAGE */
+
+        h1 {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #ea580c;
+            font-size: 32px;
+        }
+
+        /* CONTENT */
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* TABLE */
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 20px;
+        }
+
+        tr {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        td {
+            padding: 20px;
+            vertical-align: top;
+        }
+
+        img {
+            width: 150px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        h2 {
+            color: #ea580c;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        /* DISCLAIMER */
+
+        .disclaimer {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff7ed;
+            border-left: 5px solid #f97316;
+            border-radius: 10px;
+            color: #7c2d12;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:768px) {
+
+            table,
+            tr,
+            td {
+                display: block;
+                width: 100%;
+            }
+
+            img {
+                margin-bottom: 15px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="header-nav">
+
+        <div class="nav-container">
+
+            <div class="logo-text">
+                <a href="{% url 'home' %}">PoojaConnect</a>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'puja' %}">Puja</a>
+                <a href="{% url 'temples' %}">Temple</a>
+                <a href="{% url 'library' %}">Library</a>
+                <a href="{% url 'astrology' %}">Astrology</a>
+                <a href="{% url 'help' %}">Help</a>
+
+
+                <div class="profile-wrapper">
+
+                    <div class="profile-icon" onclick="toggleDropdown()">
+                        <img src="{% static 'home/images/profile.jpg' %}">
+                    </div>
+
+                    <div id="profileDropdown" class="dropdown">
+                        <a href="{% url 'user_register' %}">Register as User</a>
+                        <a href="{% url 'user_login' %}">Login as User</a>
+                        <a href="{% url 'pandit_register' %}">Register as Pandit</a>
+                        <a href="{% url 'pandit_login' %}">Login as Pandit</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <h1>Gemstone Remedies</h1>
+
+    <main>
+
+        <table>
+
+            <tr>
+                <td><img src="{% static 'home/images/Astrology/diamond.webp' %}"></td>
+                <td>
+                    <h2>Diamond (Heera)</h2>
+                    <p><strong>Remedy:</strong> Wearing a diamond enhances love, luxury, and financial stability. It is
+                        recommended for those seeking success in relationships and creativity.</p>
+                    <p><strong>Who Should Wear:</strong> People with Venus as a strong planet in their horoscope.</p>
+                    <p><strong>How to Wear:</strong> Set in gold or platinum, worn on the ring finger of the right hand
+                        on a Friday.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td><img src="{% static 'home/images/Astrology/ruby.webp' %}"></td>
+                <td>
+                    <h2>Ruby (Manikya)</h2>
+                    <p><strong>Remedy:</strong> Ruby is known for boosting self-confidence, leadership skills, and
+                        career success. It also improves blood circulation and vitality.</p>
+                    <p><strong>Who Should Wear:</strong> Those with a weak or afflicted Sun in their birth chart.</p>
+                    <p><strong>How to Wear:</strong> Set in gold or copper, worn on the ring finger of the right hand on
+                        a Sunday.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td><img src="{% static 'home/images/Astrology/sapphire.webp' %}"></td>
+                <td>
+                    <h2>Sapphire (Neelam)</h2>
+                    <p><strong>Remedy:</strong> Blue sapphire brings instant wealth, fame, and protection from evil
+                        influences. It also enhances intuition and mental clarity.</p>
+                    <p><strong>Who Should Wear:</strong> People with a strong Saturn (Shani) in their horoscope.</p>
+                    <p><strong>How to Wear:</strong> Set in silver or gold, worn on the middle finger of the right hand
+                        on a Saturday.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td><img src="{% static 'home/images/Astrology/emerald.webp' %}"></td>
+                <td>
+                    <h2>Emerald (Panna)</h2>
+                    <p><strong>Remedy:</strong> Emerald is beneficial for improving communication skills, intelligence,
+                        and emotional stability. It also helps with business growth.</p>
+                    <p><strong>Who Should Wear:</strong> Those with a weak Mercury (Budh) in their birth chart.</p>
+                    <p><strong>How to Wear:</strong> Set in gold or silver, worn on the little finger of the right hand
+                        on a Wednesday.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td><img src="{% static 'home/images/Astrology/amethyst.webp' %}"></td>
+                <td>
+                    <h2>Amethyst (Jamunia)</h2>
+                    <p><strong>Remedy:</strong> This stone is known for reducing stress, anxiety, and promoting
+                        spiritual growth. It is also useful for people struggling with addictions.</p>
+                    <p><strong>Who Should Wear:</strong> Those who seek mental peace and spiritual connection.</p>
+                    <p><strong>How to Wear:</strong> Set in silver, worn on the middle finger of the right hand on a
+                        Saturday.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td><img src="{% static 'home/images/Astrology/topaz.webp' %}"></td>
+                <td>
+                    <h2>Topaz (Pukhraj)</h2>
+                    <p><strong>Remedy:</strong> Topaz is believed to attract wealth, wisdom, and good fortune. It also
+                        helps in strengthening relationships.</p>
+                    <p><strong>Who Should Wear:</strong> People with a weak Jupiter (Guru) in their birth chart.</p>
+                    <p><strong>How to Wear:</strong> Set in gold, worn on the index finger of the right hand on a
+                        Thursday.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td><img src="{% static 'home/images/Astrology/garnet.webp' %}"></td>
+                <td>
+                    <h2>Garnet (Gomed)</h2>
+                    <p><strong>Remedy:</strong> Garnet protects against negative energies and provides strength,
+                        courage, and stability in life. It is also known to improve health conditions.</p>
+                    <p><strong>Who Should Wear:</strong> People experiencing Rahu-related issues in their horoscope.</p>
+                    <p><strong>How to Wear:</strong> Set in silver, worn on the middle finger of the right hand on a
+                        Saturday.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td><img src="{% static 'home/images/Astrology/peridot.webp' %}"></td>
+                <td>
+                    <h2>Peridot</h2>
+                    <p><strong>Remedy:</strong> Peridot promotes emotional balance, reduces stress, and attracts
+                        positivity in life. It also enhances self-esteem.</p>
+                    <p><strong>Who Should Wear:</strong> Those facing difficulties in self-growth and emotional
+                        stability.</p>
+                    <p><strong>How to Wear:</strong> Set in gold, worn on the little finger of the right hand on a
+                        Wednesday.</p>
+                </td>
+            </tr>
+
+        </table>
+
+    </main>
+
+    <div class="disclaimer">
+        <p><strong>Disclaimer:</strong> We strongly advise against wearing any gemstone without proper consultation.
+            Each gemstone has unique astrological and healing properties, and wearing the wrong one may lead to adverse
+            effects. Always consult a certified astrologer or gemstone expert before making a decision.</p>
+    </div>
+
+    <script>
+
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                document.getElementById("profileDropdown").classList.remove("show");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

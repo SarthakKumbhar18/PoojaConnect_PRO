@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+
+    <title>PoojaConnect - Grah Dasha</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* GLOBAL */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .header-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        /* PROFILE */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            width: 220px;
+            display: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .dropdown a:hover {
+            background: #f9fafb;
+            color: #f97316;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* PAGE */
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        /* IMAGE SECTION */
+
+        .image-container {
+            margin-bottom: 40px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            background: #f9fafb;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+        }
+
+        .image-container .content {
+            padding: 30px;
+        }
+
+        .image-container h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+            color: #ea580c;
+        }
+
+        .image-container p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* SECTIONS */
+
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        .section h2 {
+            color: #ea580c;
+            margin-bottom: 15px;
+        }
+
+        .section h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .section p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .section ul {
+            padding-left: 20px;
+            color: #6b7280;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* TABLE DESIGN */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        table thead {
+            background: #f97316;
+            color: white;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        table tbody tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:768px) {
+
+            .image-container h1 {
+                font-size: 26px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="header-nav">
+        <div class="nav-container">
+
+            <div class="logo-text">
+                <a href="{% url 'home' %}">PoojaConnect</a>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'puja' %}">Puja</a>
+                <a href="{% url 'temples' %}">Temple</a>
+                <a href="{% url 'library' %}">Library</a>
+                <a href="{% url 'astrology' %}">Astrology</a>
+                <a href="{% url 'help' %}">Help</a>
+
+
+                <div class="profile-wrapper">
+
+                    <div class="profile-icon" onclick="toggleDropdown()">
+                        <img src="{% static 'home/images/profile.jpg' %}">
+                    </div>
+
+                    <div id="profileDropdown" class="dropdown">
+                        <a href="{% url 'user_register' %}">Register as User</a>
+                        <a href="{% url 'user_login' %}">Login as User</a>
+                        <a href="{% url 'pandit_register' %}">Register as Pandit</a>
+                        <a href="{% url 'pandit_login' %}">Login as Pandit</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+
+    <!-- IMAGE AND CONTENT SECTION -->
+
+    <div class="container">
+        <div class="image-container">
+            <img src="{% static 'home/images/Astrology/grahadasha_view.jpg'%}" alt="Grah Dasha Image">
+            <!-- Replace with your image URL -->
+            <div class="content">
+                <h1>Grah Dasha (Planetary Periods in Vedic Astrology)</h1>
+                <p>Grah Dasha refers to the planetary periods in Vedic astrology, which influence a person’s life events
+                    based on the position of planets at the time of birth. Each planet (Grah) has a specific time period
+                    in which it dominates a person's life, bringing different effects based on its placement in the
+                    birth chart.</p>
+            </div>
+        </div>
+
+        <!-- Types of Grah Dasha -->
+        <div class="section">
+            <h2>Types of Grah Dasha</h2>
+
+            <!-- Vimshottari Dasha Table -->
+            <h3>1. Vimshottari Dasha (Most Common)</h3>
+            <p>The most widely used Dasha system in Vedic astrology is Vimshottari Dasha, which spans 120 years and
+                assigns specific time periods to each of the nine planets (Navagrahas):</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Planet (Grah)</th>
+                        <th>Ruling Period (Years)</th>
+                        <th>Effects</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sun (Surya)</td>
+                        <td>6 years</td>
+                        <td>Power, authority, leadership, ego</td>
+                    </tr>
+                    <tr>
+                        <td>Moon (Chandra)</td>
+                        <td>10 years</td>
+                        <td>Emotions, mind, relationships, creativity</td>
+                    </tr>
+                    <tr>
+                        <td>Mars (Mangal)</td>
+                        <td>7 years</td>
+                        <td>Strength, aggression, courage, energy</td>
+                    </tr>
+                    <tr>
+                        <td>Mercury (Budh)</td>
+                        <td>17 years</td>
+                        <td>Intelligence, communication, business, learning</td>
+                    </tr>
+                    <tr>
+                        <td>Jupiter (Guru)</td>
+                        <td>16 years</td>
+                        <td>Wisdom, knowledge, spirituality, prosperity</td>
+                    </tr>
+                    <tr>
+                        <td>Venus (Shukra)</td>
+                        <td>20 years</td>
+                        <td>Love, beauty, luxury, happiness</td>
+                    </tr>
+                    <tr>
+                        <td>Saturn (Shani)</td>
+                        <td>19 years</td>
+                        <td>Discipline, hardships, karma, justice</td>
+                    </tr>
+                    <tr>
+                        <td>Rahu (North Node)</td>
+                        <td>18 years</td>
+                        <td>Materialism, desires, illusion, confusion</td>
+                    </tr>
+                    <tr>
+                        <td>Ketu (South Node)</td>
+                        <td>7 years</td>
+                        <td>Detachment, spirituality, past life karma</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Each planetary period (Dasha) has its sub-periods (Antar Dasha), which further influence life events.</p>
+
+            <!-- Mahadasha, Antardasha & Pratyantar Dasha -->
+            <h3>2. Mahadasha, Antardasha & Pratyantar Dasha</h3>
+            <ul>
+                <li><strong>Mahadasha (Main Period):</strong> The longest planetary period.</li>
+                <li><strong>Antardasha (Sub-period):</strong> A smaller planetary influence within Mahadasha.</li>
+                <li><strong>Pratyantar Dasha (Sub-sub-period):</strong> More detailed effects within Antardasha.</li>
+            </ul>
+            <p>For example, if someone is in Mars Mahadasha, they will experience the influence of Mars strongly for 7
+                years, but different planets will rule the sub-periods (Antardasha) within these 7 years.</p>
+
+            <!-- Sade Sati Table -->
+            <h3>3. Sade Sati (Saturn’s 7.5-Year Period)</h3>
+            <p>Sade Sati occurs when Saturn (Shani) transits over a person’s Moon sign for 7.5 years. It is divided into
+                three phases (2.5 years each):</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Effects</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>First Phase</td>
+                        <td>Financial or emotional difficulties</td>
+                    </tr>
+                    <tr>
+                        <td>Second Phase</td>
+                        <td>Career and personal struggles</td>
+                    </tr>
+                    <tr>
+                        <td>Third Phase</td>
+                        <td>Transformation and learning</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>This is considered a challenging period, but it also teaches discipline, patience, and karma lessons.</p>
+        </div>
+
+        <!-- Effects of Each Grah Dasha -->
+        <div class="section">
+            <h2>Effects of Each Grah Dasha</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Planet</th>
+                        <th>Mahadasha Period</th>
+                        <th>Positive Effects</th>
+                        <th>Challenges</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>☀️ Sun (Surya)</td>
+                        <td>6 years</td>
+                        <td>Authority, success, confidence, leadership</td>
+                        <td>Ego, arrogance, conflicts with authority</td>
+                    </tr>
+                    <tr>
+                        <td>🌙 Moon (Chandra)</td>
+                        <td>10 years</td>
+                        <td>Emotional growth, creativity, mental peace</td>
+                        <td>Mood swings, instability, emotional sensitivity</td>
+                    </tr>
+                    <tr>
+                        <td>🔥 Mars (Mangal)</td>
+                        <td>7 years</td>
+                        <td>Energy, courage, ambition, strength</td>
+                        <td>Anger, aggression, accidents, conflicts</td>
+                    </tr>
+                    <tr>
+                        <td>🟢 Mercury (Budh)</td>
+                        <td>17 years</td>
+                        <td>Intelligence, communication, business success</td>
+                        <td>Overthinking, nervousness, miscommunication</td>
+                    </tr>
+                    <tr>
+                        <td>💛 Jupiter (Guru)</td>
+                        <td>16 years</td>
+                        <td>Wisdom, education, spirituality, financial growth</td>
+                        <td>Overconfidence, laziness, negligence</td>
+                    </tr>
+                    <tr>
+                        <td>💖 Venus (Shukra)</td>
+                        <td>20 years</td>
+                        <td>Love, beauty, luxury, material success</td>
+                        <td>Overindulgence, relationship issues, addiction</td>
+                    </tr>
+                    <tr>
+                        <td>⏳ Saturn (Shani)</td>
+                        <td>19 years</td>
+                        <td>Discipline, stability, hard work, karma rewards</td>
+                        <td>Delays, struggles, responsibilities</td>
+                    </tr>
+                    <tr>
+                        <td>🐉 Rahu</td>
+                        <td>18 years</td>
+                        <td>Sudden success, foreign travels, desires fulfillment</td>
+                        <td>Confusion, illusion, addiction, instability</td>
+                    </tr>
+                    <tr>
+                        <td>🐍 Ketu</td>
+                        <td>7 years</td>
+                        <td>Spiritual growth, detachment, enlightenment</td>
+                        <td>Loss, separation, unpredictable life changes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- How to Check Your Current Grah Dasha? -->
+        <div class="section">
+            <h2>How to Check Your Current Grah Dasha?</h2>
+            <ul>
+                <li><strong>By Birth Chart (Janma Kundli):</strong> A Vedic astrologer checks your exact time, date, and
+                    place of birth to determine your current Mahadasha and Antardasha.</li>
+                <li><strong>Online Astrology Calculators:</strong> Many websites provide free Dasha calculators based on
+                    your birth details.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                document.getElementById("profileDropdown").classList.remove("show");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

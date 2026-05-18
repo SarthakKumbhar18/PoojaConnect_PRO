@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Pandits - PoojaConnect</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #fff7ed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h2 {
+            color: #7c2d12;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: #f97316;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            background: #ea580c;
+        }
+
+        /* FILTER BOX */
+        .filter-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(249,115,22,0.15);
+            margin-bottom: 35px;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .filter-grid select,
+        .filter-grid input {
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .filter-grid button {
+            background: #f97316;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .filter-grid button:hover {
+            background: #ea580c;
+        }
+
+        /* PANDIT GRID */
+        .pandit-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .pandit-card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(249,115,22,0.15);
+            border: 1px solid #fed7aa;
+            transition: 0.3s;
+        }
+
+        .pandit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(249,115,22,0.25);
+        }
+
+        .pandit-img {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .pandit-img img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #f97316;
+        }
+
+        .pandit-name {
+            text-align: center;
+            font-weight: 600;
+            color: #7c2d12;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .pandit-location {
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .pandit-info {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+
+        .fees {
+            font-weight: 600;
+            color: #15803d;
+            margin-bottom: 12px;
+        }
+
+        .book-btn {
+            display: block;
+            text-align: center;
+            background: #f97316;
+            color: white;
+            padding: 8px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .book-btn:hover {
+            background: #ea580c;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(249,115,22,0.15);
+        }
+
+        @media(max-width: 900px) {
+            .pandit-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .pandit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h2>🧘 Available Pandits</h2>
+        <a href="{% url 'user_dashboard' %}" class="back-btn">← Back to Dashboard</a>
+    </div>
+
+    <!-- FILTER -->
+    <div class="filter-box">
+        <form method="get">
+            <div class="filter-grid">
+
+                <select name="state" id="stateDropdown">
+                    <option value="">Select State</option>
+                    {% for pandit in pandits %}
+                        {% ifchanged pandit.state %}
+                            <option value="{{ pandit.state }}">{{ pandit.state }}</option>
+                        {% endifchanged %}
+                    {% endfor %}
+                </select>
+
+                <select name="city" id="cityDropdown">
+                    <option value="">Select City</option>
+                </select>
+
+                <input type="number" name="min_exp" placeholder="Min Experience">
+                <input type="number" name="max_fee" placeholder="Max Fees">
+
+                <button type="submit">Apply</button>
+
+            </div>
+        </form>
+    </div>
+
+    <!-- PANDITS -->
+    <div class="pandit-grid">
+
+        {% for pandit in pandits %}
+        <div class="pandit-card">
+
+            <div class="pandit-img">
+                <img src="{{ pandit.photo.url }}">
+            </div>
+
+            <div class="pandit-name">
+                {{ pandit.user.username }}
+            </div>
+
+            <div class="pandit-location">
+                📍 {{ pandit.city }}, {{ pandit.state }}
+            </div>
+
+            <div class="pandit-info">
+                Experience: {{ pandit.experience }} years <br>
+                Expertise: {{ pandit.expertise }}
+            </div>
+
+            <div class="fees">
+                ₹{{ pandit.fees }}
+            </div>
+
+            <a href="{% url 'book_appointment' pandit.id %}" class="book-btn">
+                Book Appointment
+            </a>
+
+        </div>
+        {% empty %}
+        <div class="empty">
+            No pandits found 🙏
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<script>
+document.getElementById("stateDropdown").addEventListener("change", function () {
+
+    const state = this.value;
+    const cityDropdown = document.getElementById("cityDropdown");
+
+    cityDropdown.innerHTML = "<option>Loading...</option>";
+
+    fetch(`/users/ajax/get-cities/?state=${state}`)
+        .then(response => response.json())
+        .then(data => {
+
+            cityDropdown.innerHTML = "<option value=''>Select City</option>";
+
+            data.forEach(city => {
+                let option = document.createElement("option");
+                option.value = city;
+                option.textContent = city;
+                cityDropdown.appendChild(option);
+            });
+        });
+});
+</script>
+
+</body>
+</html>

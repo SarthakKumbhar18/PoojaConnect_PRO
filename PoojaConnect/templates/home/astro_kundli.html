@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+
+    <title>PoojaConnect - Kundli</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* GLOBAL */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .header-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        /* PROFILE */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            width: 220px;
+            display: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .dropdown a:hover {
+            background: #f9fafb;
+            color: #f97316;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* PAGE */
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        /* IMAGE SECTION */
+
+        .image-container {
+            margin-bottom: 40px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            background: #f9fafb;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+        }
+
+        .image-container .content {
+            padding: 30px;
+        }
+
+        .image-container h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+            color: #ea580c;
+        }
+
+        .image-container p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* CONTENT SECTIONS */
+
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        .section h2 {
+            color: #ea580c;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .section ul {
+            padding-left: 20px;
+            color: #6b7280;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:768px) {
+
+            .image-container h1 {
+                font-size: 26px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="header-nav">
+        <div class="nav-container">
+
+            <div class="logo-text">
+                <a href="{% url 'home' %}">PoojaConnect</a>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'puja' %}">Puja</a>
+                <a href="{% url 'temples' %}">Temple</a>
+                <a href="{% url 'library' %}">Library</a>
+                <a href="{% url 'astrology' %}">Astrology</a>
+                <a href="{% url 'help' %}">Help</a>
+
+
+                <div class="profile-wrapper">
+
+                    <div class="profile-icon" onclick="toggleDropdown()">
+                        <img src="{% static 'home/images/profile.jpg' %}">
+                    </div>
+
+                    <div id="profileDropdown" class="dropdown">
+                        <a href="{% url 'user_register' %}">Register as User</a>
+                        <a href="{% url 'user_login' %}">Login as User</a>
+                        <a href="{% url 'pandit_register' %}">Register as Pandit</a>
+                        <a href="{% url 'pandit_login' %}">Login as Pandit</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+
+    <div class="container">
+
+        <div class="image-container">
+            <img src="{% static 'home/images/Astrology/kundli_view.jpg' %}">
+            <div class="content">
+                <h1>What is a Kundli?</h1>
+                <p>A Kundli (also known as Janam Kundali or Birth Chart) is an astrological chart that represents the
+                    planetary positions at the time of a person's birth. It is widely used in Vedic astrology to predict
+                    an individual’s future, personality, career, relationships, and more.</p>
+            </div>
+        </div>
+
+        <!-- Importance -->
+
+        <div class="section">
+            <h2>Importance of Kundli in Astrology</h2>
+            <ul>
+                <li><strong>Personality & Character:</strong> Helps understand an individual's nature, strengths, and
+                    weaknesses.</li>
+                <li><strong>Career & Finance:</strong> Provides insights into the best career paths and financial
+                    prospects.</li>
+                <li><strong>Marriage Compatibility:</strong> Kundli matching (Gun Milan) is used in Hindu traditions to
+                    check compatibility for marriage.</li>
+                <li><strong>Health Predictions:</strong> Indicates potential health issues and remedies.</li>
+                <li><strong>Dasha & Transits:</strong> Helps in analyzing major life events based on planetary periods
+                    (Mahadasha, Antardasha).</li>
+            </ul>
+        </div>
+
+        <!-- Structure -->
+
+        <div class="section">
+            <h2>Kundli Structure & Key Components</h2>
+            <p>A Kundli is divided into 12 houses, each representing different aspects of life:</p>
+
+            <ul>
+                <li><strong>First House (Ascendant/Lagna):</strong> Personality, physical appearance, self-image.</li>
+                <li><strong>Second House:</strong> Wealth, family, speech.</li>
+                <li><strong>Third House:</strong> Siblings, communication, courage.</li>
+                <li><strong>Fourth House:</strong> Home, mother, comforts.</li>
+                <li><strong>Fifth House:</strong> Education, creativity, children.</li>
+                <li><strong>Sixth House:</strong> Health, enemies, debts.</li>
+                <li><strong>Seventh House:</strong> Marriage, partnerships.</li>
+                <li><strong>Eighth House:</strong> Longevity, mysteries, sudden events.</li>
+                <li><strong>Ninth House:</strong> Luck, religion, long journeys.</li>
+                <li><strong>Tenth House:</strong> Career, profession, status.</li>
+                <li><strong>Eleventh House:</strong> Gains, social circle, aspirations.</li>
+                <li><strong>Twelfth House:</strong> Expenses, losses, spirituality.</li>
+            </ul>
+
+        </div>
+
+        <!-- Planets -->
+
+        <div class="section">
+
+            <h2>Planets in Kundli & Their Significance</h2>
+
+            <p>Each planet in astrology influences a person’s life based on its position in the Kundli:</p>
+
+            <ul>
+                <li><strong>Sun (Surya):</strong> Authority, ego, leadership.</li>
+                <li><strong>Moon (Chandra):</strong> Emotions, mind, mother.</li>
+                <li><strong>Mars (Mangal):</strong> Energy, aggression, courage.</li>
+                <li><strong>Mercury (Budh):</strong> Intelligence, communication, business.</li>
+                <li><strong>Jupiter (Guru):</strong> Wisdom, luck, education.</li>
+                <li><strong>Venus (Shukra):</strong> Love, beauty, luxury.</li>
+                <li><strong>Saturn (Shani):</strong> Discipline, hardship, karma.</li>
+                <li><strong>Rahu:</strong> Ambition, material success, illusions.</li>
+                <li><strong>Ketu:</strong> Spirituality, detachment, past karma.</li>
+            </ul>
+
+        </div>
+
+        <!-- Marriage -->
+
+        <div class="section">
+
+            <h2>Kundli Matching for Marriage (Gun Milan)</h2>
+
+            <p>In Hindu tradition, Kundli matching is done before marriage using the Ashtakoota method. It evaluates
+                compatibility based on 36 Gunas (points), where:</p>
+
+            <ul>
+                <li><strong>18+ points:</strong> Considered a good match.</li>
+                <li><strong>24+ points:</strong> Highly compatible.</li>
+                <li><strong>Below 18 points:</strong> Marriage is not recommended.</li>
+            </ul>
+
+        </div>
+
+        <!-- Reading -->
+
+        <div class="section">
+
+            <h2>How to Read a Kundli?</h2>
+
+            <ul>
+                <li><strong>Identify Lagna (Ascendant):</strong> Determines basic personality.</li>
+                <li><strong>Check Planetary Positions:</strong> Their influence on different houses.</li>
+                <li><strong>Analyze Dasha System:</strong> Predicts major life events.</li>
+                <li><strong>Observe Transits (Gochar):</strong> Current planetary movements and effects.</li>
+                <li><strong>Look at Yogas & Doshas:</strong> Special combinations like Raj Yoga (success) or Mangal
+                    Dosha (marital issues).</li>
+            </ul>
+
+        </div>
+
+        <!-- Doshas -->
+
+        <div class="section">
+
+            <h2>Common Doshas & Remedies</h2>
+
+            <ul>
+                <li><strong>Mangal Dosha:</strong> Can cause marital issues, remedied by Hanuman Chalisa, fasting on
+                    Tuesdays, and Kumbh Vivah.</li>
+                <li><strong>Kaal Sarp Dosha:</strong> Causes struggles in life, remedied by worshiping Lord Shiva.</li>
+                <li><strong>Pitra Dosha:</strong> Family-related karma, remedied by Pitra Tarpan and Shraddha rituals.
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                document.getElementById("profileDropdown").classList.remove("show");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

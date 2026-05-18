@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PoojaConnect - User Login</title>
+    {% load static %}
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #7c2d12, #b45309);
+        }
+
+        /* ================= UPDATED NAVBAR ================= */
+        .header-nav {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .nav-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text a {
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            margin-left: 1rem;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            width: 220px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .dropdown a:hover {
+            background: #f9fafb;
+            color: #f97316;
+        }
+
+        .show {
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* ================= LOGIN SECTION ================= */
+
+        .page-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+        }
+
+        .login-wrapper {
+            width: 700px;
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .left-panel {
+            width: 40%;
+            background: linear-gradient(180deg, #f97316, #ea580c);
+            color: white;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-panel {
+            width: 60%;
+            padding: 2.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            background: #15803d;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .register-link {
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        .register-link a {
+            color: #f97316;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 0.6rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        @media(max-width: 768px) {
+            .login-wrapper {
+                flex-direction: column;
+                width: 95%;
+            }
+
+            .left-panel,
+            .right-panel {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= UPDATED NAVBAR ================= -->
+    <header class="header-nav">
+        <div class="nav-container">
+            <div class="logo-area">
+                <span class="logo-text">
+                    <a href="{% url 'home' %}">PoojaConnect</a>
+                </span>
+            </div>
+
+            <div class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'puja' %}">Puja</a>
+                <a href="{% url 'temples' %}">Temple</a>
+                <a href="{% url 'library' %}">Library</a>
+                <a href="{% url 'astrology' %}">Astrology</a>
+                <a href="{% url 'help' %}">Help</a>
+
+                <div class="profile-wrapper">
+                    <div class="profile-icon" onclick="toggleDropdown()">
+                        <img src="{% static 'home/images/profile.jpg' %}">
+                    </div>
+
+                    <div id="profileDropdown" class="dropdown">
+                        <a href="{% url 'user_register' %}">Register as User</a>
+                        <a href="{% url 'user_login' %}">Login as User</a>
+                        <a href="{% url 'pandit_register' %}">Register as Pandit</a>
+                        <a href="{% url 'pandit_login' %}">Login as Pandit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= LOGIN SECTION ================= -->
+    <div class="page-wrapper">
+
+        <div class="login-wrapper">
+
+            <div class="left-panel">
+                <h2>Login</h2>
+                <p>
+                    Welcome back to PoojaConnect.
+                    Continue your spiritual journey and manage your bookings,
+                    pujas and devotional services.
+                </p>
+            </div>
+
+            <div class="right-panel">
+
+                <h3>User Login</h3><br>
+                <p>Enter your credentials to continue</p><br>
+
+                {% if messages %}
+                {% for message in messages %}
+                <div class="message">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+
+                <div class="register-link">
+                    Don’t have an account?
+                    <a href="{% url 'user_register' %}">Register here</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (e) {
+            if (!e.target.closest('.profile-wrapper')) {
+                document.getElementById("profileDropdown").classList.remove("show");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
